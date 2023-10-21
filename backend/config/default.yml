@@ -1,0 +1,11 @@
+server:
+  host: localhost
+  port: 3000
+swagger:
+  title: Documentation NWT Project
+  description: The NWT Project API description
+  version: 1.0
+  tag: nwt
+  path: documentation
+mongodb:
+  uri: mongodb://localhost:27017/nwt

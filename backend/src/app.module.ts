@@ -1,10 +1,17 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import {Module} from '@nestjs/common';
+import {UsersModule} from './users/users.module';
+import {StudentModule} from './student/student.module';
+import {ProfessorModule} from './professor/professor.module';
+import {MongooseModule} from "@nestjs/mongoose";
+import * as Config from 'config';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        UsersModule,
+        StudentModule,
+        ProfessorModule,
+        MongooseModule.forRoot(Config.get<string>('mongodb.uri')),
+    ],
 })
-export class AppModule {}
+export class AppModule {
+}
