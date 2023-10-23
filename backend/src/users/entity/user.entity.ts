@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Exclude, Expose, Type} from "@nestjs/class-transformer";
+import { Exclude, Expose, Type } from 'class-transformer';
 import {User} from "../schema/user.schema";
 
 @Exclude()
@@ -56,6 +56,14 @@ export class UserEntity {
     })
     @Type(() => String)
     password: string;
+
+    @ApiProperty({
+        name: 'role',
+        description: 'Role',
+        example: 'professor | student',
+    })
+    @Type(() => String)
+    role: string;
 
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);

@@ -1,15 +1,15 @@
 import {Module} from '@nestjs/common';
 import {UsersModule} from './users/users.module';
-import {StudentModule} from './student/student.module';
-import {ProfessorModule} from './professor/professor.module';
+import {StudentsModule} from './student/students.module';
+import {ProfessorsModule} from './professor/professors.module';
 import {MongooseModule} from "@nestjs/mongoose";
 import * as Config from 'config';
 
 @Module({
     imports: [
         UsersModule,
-        StudentModule,
-        ProfessorModule,
+        StudentsModule,
+        ProfessorsModule,
         MongooseModule.forRoot(Config.get<string>('mongodb.uri')),
     ],
 })

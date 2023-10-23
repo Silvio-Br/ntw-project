@@ -8,7 +8,8 @@ import * as Config from 'config';
 import { AppConfig, SwaggerConfig } from './app.types';
 import {Logger, ValidationPipe} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
-import {UsersModule} from "./users/users.module";
+import {ProfessorsModule} from "./professor/professors.module";
+import {StudentsModule} from "./student/students.module";
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -27,12 +28,11 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
         .setTitle(swaggerConfig.title)
         .setDescription(swaggerConfig.description)
         .setVersion(swaggerConfig.version)
-        .addTag(swaggerConfig.tag)
         .build();
 
     // create swagger document
     const userDocument = SwaggerModule.createDocument(app, options, {
-        include: [UsersModule],
+        include: [ProfessorsModule, StudentsModule],
     });
 
     // setup swagger module

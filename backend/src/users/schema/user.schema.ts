@@ -55,6 +55,13 @@ export class User {
         trim: true,
     })
     password: string;
+
+    @Prop({
+        type: String,
+        required: true,
+        trim: true,
+    })
+    role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
