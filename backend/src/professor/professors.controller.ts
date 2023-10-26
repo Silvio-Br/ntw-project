@@ -17,11 +17,11 @@ import {
     ApiOkResponse,
     ApiParam, ApiTags
 } from "@nestjs/swagger";
-import {UserEntity} from "../users/entity/user.entity";
 import {Observable} from "rxjs";
 import {CreateUserDto} from "../users/dto/create-user.dto";
 import {UpdateUserDto} from "../users/dto/update-user.dto";
 import {HandlerParams} from "../users/validator/handler-param";
+import {User} from "../users/schema/user.schema";
 
 @ApiTags('professors')
 @Controller('professors')
@@ -32,18 +32,18 @@ export class ProfessorsController {
 
     @ApiOkResponse({
         description: 'Returns an array of professor',
-        type: UserEntity,
+        type: User,
         isArray: true,
     })
     @ApiNoContentResponse({ description: 'No professor exists in database' })
     @Get()
-    findAll(): Observable<UserEntity[] | void> {
+    findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('professor');
     }
 
     @ApiOkResponse({
         description: 'Returns a professor by id',
-        type: UserEntity,
+        type: User,
     })
     @ApiNotFoundResponse({ description: 'Professor with the given "id" not found' })
     @ApiBadRequestResponse({ description: 'Validation failed' })
@@ -54,13 +54,13 @@ export class ProfessorsController {
         allowEmptyValue: false,
     })
     @Get(':id')
-    findOne(@Param() params: HandlerParams): Observable<UserEntity | void> {
+    findOne(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('professor', params.id);
     }
 
     @ApiCreatedResponse({
         description: 'The professor has been successfully created',
-        type: UserEntity,
+        type: User,
     })
     @ApiConflictResponse({
         description: 'The professor already exists in the database',
@@ -71,13 +71,13 @@ export class ProfessorsController {
         type: CreateUserDto,
     })
     @Post()
-    create(@Body() createPersonDto: CreateUserDto): Observable<UserEntity> {
+    create(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'professor');
     }
 
     @ApiOkResponse({
         description: 'The professor has been successfully updated',
-        type: UserEntity,
+        type: User,
     })
     @ApiNotFoundResponse({
         description: 'Professor with the given "id" not found',
@@ -95,13 +95,13 @@ export class ProfessorsController {
     update(
         @Param() { id }: HandlerParams,
         @Body() updatePersonDto: UpdateUserDto,
-    ): Observable<UserEntity | void> {
+    ): Observable<User | void> {
         return this._usersService.update(id, updatePersonDto);
     }
 
     @ApiOkResponse({
         description: 'The professor has been successfully deleted',
-        type: UserEntity,
+        type: User,
     })
     @ApiNotFoundResponse({
         description: 'Professor with the given "id" not found',
@@ -116,7 +116,7 @@ export class ProfessorsController {
         allowEmptyValue: false,
     })
     @Delete(':id')
-    delete(@Param() { id }: HandlerParams): Observable<UserEntity | void> {
+    delete(@Param() { id }: HandlerParams): Observable<User | void> {
         return this._usersService.delete(id);
     }
 

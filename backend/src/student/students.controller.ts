@@ -18,11 +18,11 @@ import {
     ApiOkResponse, ApiParam,
     ApiTags
 } from "@nestjs/swagger";
-import {UserEntity} from "../users/entity/user.entity";
 import {CreateUserDto} from "../users/dto/create-user.dto";
 import {Observable} from "rxjs";
 import {UpdateUserDto} from "../users/dto/update-user.dto";
 import {HandlerParams} from "../users/validator/handler-param";
+import {User} from "../users/schema/user.schema";
 
 @ApiTags('students')
 @Controller('students')
@@ -34,18 +34,18 @@ export class StudentsController {
 
     @ApiOkResponse({
         description: 'Returns an array of students',
-        type: UserEntity,
+        type: User,
         isArray: true,
     })
     @ApiNoContentResponse({description: 'No student exists in database'})
     @Get()
-    findAll(): Observable<UserEntity[] | void> {
+    findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('student');
     }
 
     @ApiOkResponse({
         description: 'Returns a student by id',
-        type: UserEntity,
+        type: User,
     })
     @ApiNotFoundResponse({description: 'Student with the given "id" not found'})
     @ApiBadRequestResponse({description: 'Validation failed'})
@@ -56,13 +56,13 @@ export class StudentsController {
         allowEmptyValue: false,
     })
     @Get(':id')
-    findOne(@Param() params: HandlerParams): Observable<UserEntity | void> {
+    findOne(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('student', params.id);
     }
 
     @ApiCreatedResponse({
         description: 'The student has been successfully created',
-        type: UserEntity,
+        type: User,
     })
     @ApiConflictResponse({
         description: 'The student already exists in the database',
@@ -73,13 +73,13 @@ export class StudentsController {
         type: CreateUserDto,
     })
     @Post()
-    create(@Body() createPersonDto: CreateUserDto): Observable<UserEntity> {
+    create(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'student');
     }
 
     @ApiOkResponse({
         description: 'The student has been successfully updated',
-        type: UserEntity,
+        type: User,
     })
     @ApiNotFoundResponse({
         description: 'Student with the given "id" not found',
@@ -95,13 +95,13 @@ export class StudentsController {
     })
     @ApiBody({description: 'Payload to update a student', type: UpdateUserDto})
     @Put(':id')
-    update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<UserEntity | void> {
+    update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<User | void> {
         return this._usersService.update(params.id, updatePersonDto);
     }
 
     @ApiOkResponse({
         description: 'The student has been successfully deleted',
-        type: UserEntity,
+        type: User,
     })
     @ApiNotFoundResponse({
         description: 'Student with the given "id" not found',
@@ -116,7 +116,7 @@ export class StudentsController {
         allowEmptyValue: false,
     })
     @Delete(':id')
-    delete(@Param() params: HandlerParams): Observable<UserEntity | void> {
+    delete(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.delete(params.id);
     }
 }

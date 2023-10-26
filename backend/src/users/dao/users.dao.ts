@@ -19,7 +19,7 @@ export class UsersDao {
         from(this._userModel.find().exec()).pipe(map((users) => users.map((user) => user.toJSON())));
 
     findByRoleAndId = (role: string, id: string): Observable<User | void> =>
-        from(this._userModel.findOne({role: role, _id: id}).exec()).pipe(
+        from(this._userModel.findOne({role: role, id: id}).exec()).pipe(
             map((user) => {
                     if (!user) {
                         return null;
@@ -39,6 +39,15 @@ export class UsersDao {
                 }
                 return user.toJSON();
             })
+        );
+
+    findByEmailAndPassword = (email: string, password: string): Promise<User | undefined> =>
+        this._userModel.findOne({email: email, password: password}).exec().then((user) => {
+                if (!user) {
+                    return undefined;
+                }
+                return user.toJSON();
+            }
         );
 
 
@@ -64,4 +73,5 @@ export class UsersDao {
                 return user.toJSON();
             })
         );
+
 }
