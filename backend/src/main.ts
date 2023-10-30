@@ -28,7 +28,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
     )
     app.use(passport.initialize())
     app.use(passport.session())
-
+    app.enableCors();
     await app.useGlobalPipes(
         new ValidationPipe({
             whitelist: true,

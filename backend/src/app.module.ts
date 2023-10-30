@@ -5,6 +5,9 @@ import {ProfessorsModule} from './professor/professors.module';
 import {MongooseModule} from "@nestjs/mongoose";
 import { AuthModule } from './auth/auth.module';
 import * as Config from 'config';
+import { AbsenceModule } from './absence/AbsenceModule';
+import { MessagesModule } from './messages/MessagesModule';
+
 
 @Module({
     imports: [
@@ -13,6 +16,9 @@ import * as Config from 'config';
         ProfessorsModule,
         MongooseModule.forRoot(Config.get<string>('mongodb.uri')),
         AuthModule,
+        AbsenceModule,
+        MessagesModule,
+     
     ],
 })
 export class AppModule {
