@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { AbsenceDao } from './AbsenceDao';
-import { AbsenceDto } from './AbsenceDto';
-import { Absence } from './AbsenceSchema';
+import { AbsenceDao } from './dao/absence.dao';
+import { AbsenceDto } from './dto/absence.dto';
+import { Absence } from './schema/absence.schema';
 
 @Injectable()
-export class AbsenceService {
+export class AbsencesService {
   constructor(private readonly absenceDao: AbsenceDao) {}
 
   async create(absenceDto: AbsenceDto): Promise<Absence> {

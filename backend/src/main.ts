@@ -12,6 +12,9 @@ import {ProfessorsModule} from "./professor/professors.module";
 import {StudentsModule} from "./student/students.module";
 import * as passport from "passport";
 import * as session from "express-session";
+import {AuthModule} from "./auth/auth.module";
+import {AbsencesModule} from "./absence/absences.module";
+import {MessagesModule} from "./messages/messages.module";
 
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
@@ -19,6 +22,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
         AppModule,
         new FastifyAdapter({logger: true}),
     );
+    app.setGlobalPrefix('api')
     app.use(
         session({
             secret: "keyboard",
@@ -44,7 +48,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
     // create swagger document
     const userDocument = SwaggerModule.createDocument(app, options, {
-        include: [ProfessorsModule, StudentsModule],
+        include: [ProfessorsModule, StudentsModule, AbsencesModule, MessagesModule, AuthModule],
     });
 
     // setup swagger module

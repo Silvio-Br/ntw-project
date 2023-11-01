@@ -15,7 +15,11 @@ export class AuthService {
     }
 
     async loginWithCredentials(email: string, pass: string) {
-        const payload = { email: email};
+        const user = await this.validateUserCredentials(email, pass);
+        // remove password from user object
+        delete user.password;
+        delete user.id;
+        const payload = user ?? null;
         return {
             access_token: this._jwtService.sign(payload),
         };

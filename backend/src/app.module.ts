@@ -5,8 +5,8 @@ import {ProfessorsModule} from './professor/professors.module';
 import {MongooseModule} from "@nestjs/mongoose";
 import { AuthModule } from './auth/auth.module';
 import * as Config from 'config';
-import { AbsenceModule } from './absence/AbsenceModule';
-import { MessagesModule } from './messages/MessagesModule';
+import { AbsencesModule } from './absence/absences.module';
+import { MessagesModule } from './messages/messages.module';
 
 
 @Module({
@@ -16,7 +16,7 @@ import { MessagesModule } from './messages/MessagesModule';
         ProfessorsModule,
         MongooseModule.forRoot(Config.get<string>('mongodb.uri')),
         AuthModule,
-        AbsenceModule,
+        AbsencesModule,
         MessagesModule,
      
     ],

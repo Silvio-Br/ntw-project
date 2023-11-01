@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateMessageDto } from './CreateMessageDto';
-import { Message } from './Message';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { Message } from './schema/message.schema';
 
 export class MessagesService {
     constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) {}
