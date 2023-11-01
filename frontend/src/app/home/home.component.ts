@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../services/api.service";
-import {TOKEN_NAME} from "../services/auth.service";
+import {ApiService} from "../shared/services/api.service";
+import {TOKEN_NAME} from "../shared/services/auth.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 @Component({
   selector: 'app-home',

@@ -32,7 +32,40 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem(TOKEN_NAME);
-    return !this.jwtHelper.isTokenExpired(token);
+    return !this.jwtHelper.isTokenExpired(this.token);
+  }
+
+  isProfessor() {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken.role === 'professor';
+  }
+
+  isStudent() {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken.role === 'student';
+  }
+
+  get user(): any {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken;
+  }
+
+  get firstName(): string {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken.firstname;
+  }
+
+  get lastName(): string {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken.lastname;
+  }
+
+  updateToken(jwt: any) {
+    localStorage.setItem(TOKEN_NAME, jwt);
+  }
+
+  logout() {
+    localStorage.removeItem(TOKEN_NAME);
+    this._isLoggedIn$.next(false);
   }
 }

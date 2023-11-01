@@ -50,11 +50,9 @@
                     <input formControlName="password" type="password" class="form-control form-control-user"
                            id="exampleInputPassword" placeholder="Mot de passe..">
                   </div>
-                  <mat-error>
-                    <mat-error class="text-red pl-1" *ngIf="failedLogin">
+                    <mat-error class="text-red pl-1 text-center" *ngIf="failedLogin">
                       Email or password is <strong>incorrect</strong>
                     </mat-error>
-                  </mat-error>
                   <button type="submit" (click)="submit(form.value)" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
                     Connexion
                   </button>

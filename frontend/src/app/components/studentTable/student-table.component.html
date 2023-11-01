@@ -1,0 +1,30 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Mes absences</h6>
+  </div>
+  <div class="card-body" *ngIf="absences.length > 0">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+          <th>Matière</th>
+          <th>Professeur</th>
+          <th>État</th>
+          <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let absence of absences">
+          <td>{{absence.matiere}}</td>
+          <td>{{absence.enseignantId}}</td>
+          <td>{{absence.etat}}</td>
+          <td>{{absence.dateAbsence | date: 'dd/MM/yyyy à hh:mm'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-body pt-4" *ngIf="absences.length == 0">
+    <p>Vous n'avez pas d'absences</p>
+  </div>
+</div>

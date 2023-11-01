@@ -2,7 +2,7 @@ import {Injectable} from "@nestjs/common";
 import {Model} from "mongoose";
 import {User} from "../schema/user.schema";
 import {InjectModel} from "@nestjs/mongoose";
-import {from, map, Observable} from "rxjs";
+import {from, map, mergeMap, Observable} from "rxjs";
 import {CreateUserDto} from "../dto/create-user.dto";
 import {UpdateUserDto} from "../dto/update-user.dto";
 
@@ -52,7 +52,16 @@ export class UsersDao {
 
 
     save = (user: CreateUserDto): Observable<User> =>
-        from(this._userModel.create(user)).pipe(map((user) => user.toJSON()));
+        // check if email already exists
+        from(this._userModel.findOne({email: user.email}).exec()).pipe(
+            map((user) => {
+                if (user) {
+                    throw new Error('Email "' + user.email + '" already exists');
+                }
+            }),
+            mergeMap(() => from(this._userModel.create(user))),
+            map((user) => user.toJSON()),
+        );
 
     update = (id: string, user: UpdateUserDto): Observable<User | void> =>
         from(this._userModel.findByIdAndUpdate(id, user, {new: true}).exec()).pipe(

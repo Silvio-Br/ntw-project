@@ -17,6 +17,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
+import { ProfilComponent } from './profil/profil.component';
+import { StudentTableComponent } from './components/studentTable/student-table.component';
+import { MyAbsencesComponent } from './my-absences/my-absences.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
     AbsenceComponent,
     HomeComponent,
     LoginComponent,
+    ProfilComponent,
+    StudentTableComponent,
+    MyAbsencesComponent,
   ],
   imports: [
     BrowserModule,
