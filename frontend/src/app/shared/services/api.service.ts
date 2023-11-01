@@ -11,25 +11,25 @@ export class ApiService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   login(email: string, password: string) {
-    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/api/auth/login`, {
+    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/auth/login`, {
       email,
       password,
     });
   }
 
   getProfessors() {
-    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/api/professors`);
+    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/professors`);
   }
 
   getStudents() {
-    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/api/students`);
+    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/students`);
   }
 
   update(id: string, form: any, role: string) {
-    return this.http.put(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/api/${role}s/${id}`, form);
+    return this.http.put(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s/${id}`, form);
   }
 
   getAbsences(id: string) {
-    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/api/absences/student/${id}`);
+    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/absences/student/${id}`);
   }
 }

@@ -22,7 +22,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
         AppModule,
         new FastifyAdapter({logger: true}),
     );
-    app.setGlobalPrefix('api')
+    //app.setGlobalPrefix('api')
     app.use(
         session({
             secret: "keyboard",
