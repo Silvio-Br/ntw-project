@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../shared/services/auth.service";
 import {ApiService} from "../shared/services/api.service";
+import {User} from "../shared/types/user.type";
 
 @Component({
   selector: 'app-profil',
@@ -10,35 +11,18 @@ import {ApiService} from "../shared/services/api.service";
 })
 export class ProfilComponent {
 
-  private _form: FormGroup;
+  private _currentUser: User;
 
   constructor(private readonly _authService: AuthService, private readonly _apiService: ApiService) {
-    this._form = this._buildForm();
+    this._currentUser = this._authService.user;
   }
 
-  get form(): FormGroup {
-    return this._form;
+  get currentUser(): User {
+    return this._currentUser;
   }
 
-  private _buildForm(): FormGroup {
-    return new FormGroup({
-      firstname: new FormControl(
-        this._authService.user.firstname,
-        Validators.compose([Validators.required])
-      ),
-      lastname: new FormControl(
-        this._authService.user.lastname,
-        Validators.compose([Validators.required])
-      ),
-      email: new FormControl(this._authService.user.email, [Validators.required, Validators.email]),
-      phone: new FormControl(this._authService.user.phone, Validators.compose([
-        Validators.required,
-        Validators.pattern('(0|\\+33)\\d{9}'),
-      ])),
-    });
-  }
 
-  submit(form: any): void {
+  submit(form: User): void {
     let role = this._authService.user.role;
     this._apiService.update(this._authService.user._id, form, role).subscribe((response: any) => {
       form = response.user;

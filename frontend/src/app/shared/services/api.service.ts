@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {AuthService} from "./auth.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {User} from "../types/user.type";
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,9 @@ export class ApiService {
 
   getAbsences(id: string) {
     return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/absences/student/${id}`);
+  }
+
+  create(form: User, role: string) {
+    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s`, form);
   }
 }

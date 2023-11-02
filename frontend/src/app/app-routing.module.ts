@@ -8,12 +8,14 @@ import {AuthGuard} from "./shared/guards/auth.guard";
 import {UnAuthGuard} from "./shared/guards/un-auth.guard";
 import {ProfilComponent} from "./profil/profil.component";
 import {MyAbsencesComponent} from "./my-absences/my-absences.component";
+import {NewStudentComponent} from "./students/new-student/new-student.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect to the home page
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [UnAuthGuard]},
   { path: 'students', component: StudentsComponent }, // students component
+  { path: 'students/new', component: NewStudentComponent},
   { path: 'absence/:studentId', component: AbsenceComponent },
   { path: 'profil', component: ProfilComponent},
   { path: 'my-absences', component: MyAbsencesComponent, canActivate: [AuthGuard] }

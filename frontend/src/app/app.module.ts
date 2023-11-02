@@ -18,8 +18,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import { ProfilComponent } from './profil/profil.component';
-import { StudentTableComponent } from './components/studentTable/student-table.component';
+import { StudentTableComponent } from './components/student-table/student-table.component';
 import { MyAbsencesComponent } from './my-absences/my-absences.component';
+import {FormComponent} from "./components/form-student/form.component";
+import { NewStudentComponent } from './students/new-student/new-student.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MyAbsencesComponent } from './my-absences/my-absences.component';
     ProfilComponent,
     StudentTableComponent,
     MyAbsencesComponent,
+    FormComponent,
+    NewStudentComponent
   ],
   imports: [
     BrowserModule,

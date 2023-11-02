@@ -1,0 +1,12 @@
+<div>
+  <h1>Créer un étudiant</h1>
+
+  <div class="pt-5">
+    <app-form-student (submit)="submit($event)"></app-form-student>
+  </div>
+  <div *ngIf="alreadyExist">
+    <mat-error>
+      Un étudiant avec cet email existe déjà.
+    </mat-error>
+  </div>
+</div>

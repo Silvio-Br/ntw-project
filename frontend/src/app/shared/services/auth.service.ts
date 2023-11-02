@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import {User} from "../types/user.type";
 
 export const TOKEN_NAME = 'token';
 
