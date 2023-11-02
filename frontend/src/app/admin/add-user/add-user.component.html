@@ -1,0 +1,19 @@
+<div>
+  <h1>Créer un utilisateur</h1>
+
+  <div class="pt-5">
+    <mat-radio-group [(ngModel)]="userType">
+      <mat-radio-button value="professor">Professeur</mat-radio-button>
+      <mat-radio-button value="student">Étudiant</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="pt-5">
+    <app-form-user (submit)="submit($event)"></app-form-user>
+  </div>
+  <div *ngIf="alreadyExist">
+    <mat-error>
+      Un utilisateur avec cet email existe déjà.
+    </mat-error>
+  </div>
+</div>

@@ -3,7 +3,7 @@ import {
     ClassSerializerInterceptor,
     Controller,
     Delete,
-    Get,
+    Get, NotFoundException,
     Param,
     Post,
     Put,
@@ -19,17 +19,18 @@ import {
     ApiTags
 } from "@nestjs/swagger";
 import {CreateUserDto} from "../users/dto/create-user.dto";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {UpdateUserDto} from "../users/dto/update-user.dto";
 import {HandlerParams} from "../users/validator/handler-param";
 import {User} from "../users/schema/user.schema";
+import {AuthService} from "../auth/auth.service";
 
 @ApiTags('students')
 @Controller('students')
 @UseInterceptors(ClassSerializerInterceptor)
 export class StudentsController {
 
-    constructor(private readonly _usersService: UsersService) {
+    constructor(private readonly _usersService: UsersService, private readonly _authService: AuthService) {
     }
 
     @ApiOkResponse({
@@ -95,8 +96,32 @@ export class StudentsController {
     })
     @ApiBody({description: 'Payload to update a student', type: UpdateUserDto})
     @Put(':id')
-    update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<User | void> {
-        return this._usersService.update(params.id, updatePersonDto);
+    update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
+        jwt: string;
+        user: User
+    }> {
+        return this._usersService.update(params.id, updatePersonDto).pipe(
+            map((user) => {
+                if (user) {
+                    // Générer un nouveau JWT avec les informations mises à jour de l'utilisateur
+                    const payload = {
+                        _id: user._id,
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email,
+                        phone: user.phone,
+                        role: user.role,
+                    };
+                    const nouveauJWT = this._authService.sign(payload);
+
+                    // Retourner le nouveau JWT avec l'utilisateur mis à jour
+                    return { user, jwt: nouveauJWT };
+                } else {
+                    // Gérer le cas où l'utilisateur n'a pas été trouvé
+                    throw new NotFoundException('User with id "' + params.id + ' not found');
+                }
+            })
+        );
     }
 
     @ApiOkResponse({

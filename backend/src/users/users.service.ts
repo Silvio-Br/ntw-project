@@ -70,7 +70,7 @@ export class UsersService {
                     ? throwError(
                         () =>
                             new ConflictException(
-                                `People with lastname '${user.lastname}' and firstname '${user.firstname}' already exists`,
+                                `People with email '${user.email}' already exists`,
                             ),
                     )
                     : throwError(() => new UnprocessableEntityException(e.message)),

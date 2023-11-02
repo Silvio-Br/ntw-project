@@ -6,10 +6,6 @@ import {PassportModule} from "@nestjs/passport";
 import {JwtModule} from "@nestjs/jwt";
 import {LocalStrategy} from "./strategy/local.strategy";
 import {JwtStrategy} from "./strategy/jwt.strategy";
-import {UsersService} from "../users/users.service";
-import {UsersDao} from "../users/dao/users.dao";
-import {MongooseModule} from "@nestjs/mongoose";
-import {User, UserSchema} from "../users/schema/user.schema";
 
 @Module({
   imports: [
@@ -17,7 +13,7 @@ import {User, UserSchema} from "../users/schema/user.schema";
       PassportModule,
       JwtModule.register({
         secret: 'secretKey',
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '1h' },
       })
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
