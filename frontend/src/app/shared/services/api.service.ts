@@ -37,4 +37,8 @@ export class ApiService {
   create(form: User, role: string) {
     return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s`, form);
   }
+
+  deleteUser(_id: String, role: string) {
+    return this.http.delete(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s/${_id}`);
+  }
 }

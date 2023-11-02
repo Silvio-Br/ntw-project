@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Absence} from "../../shared/types/absence.type";
-import {ApiService} from "../../shared/services/api.service";
-import {AuthService} from "../../shared/services/auth.service";
+import {Absence} from "../../types/absence.type";
+import {ApiService} from "../../services/api.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-student-table',

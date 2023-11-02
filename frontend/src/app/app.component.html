@@ -23,6 +23,31 @@
             <span>Dashboard</span></a>
         </li>
 
+        <div *ngIf="isAdmin">
+          <hr class="sidebar-divider">
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Administrateur
+          </div>
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin/add-user']">
+              <i class="fas fa-fw fa-user-plus"></i>
+              <span>Ajouter un utilisateur</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin/professors']">
+              <i class="fas fa-fw fa-user-friends"></i>
+              <span>Professeurs</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin/students']">
+              <i class="fas fa-fw fa-user-friends"></i>
+              <span>Étudiants</span></a>
+          </li>
+        </div>
+
         <div *ngIf="isStudent">
           <hr class="sidebar-divider">
 
@@ -32,7 +57,7 @@
           </div>
 
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/my-absences']">
+            <a class="nav-link" [routerLink]="['/student/my-absences']">
               <i class="fas fa-fw fa-table"></i>
               <span>Mes Absences</span></a>
           </li>
@@ -49,7 +74,7 @@
 
           <!-- Nav Item - Tables -->
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/students']">
+            <a class="nav-link" [routerLink]="['professor/students']">
               <i class="fas fa-fw fa-table"></i>
               <span>Étudiants</span></a>
           </li>
@@ -231,11 +256,11 @@
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                      aria-labelledby="userDropdown">
-                  <a class="dropdown-item" [routerLink]="['/profil']">
+                  <a class="dropdown-item" [routerLink]="['/profil']" *ngIf="!isAdmin">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Mon Profil
                   </a>
-                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-divider" *ngIf="!isAdmin"></div>
                   <a (click)="logout()" style="cursor: pointer" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Déconnexion

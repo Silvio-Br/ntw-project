@@ -26,6 +26,11 @@ export class AppComponent {
     return this._authService.isStudent();
   }
 
+  get isAdmin(): boolean {
+    // check user role is admin
+    return this._authService.isAdmin();
+  }
+
   get isProfessor(): boolean {
     // check user role is professor
     return this._authService.isProfessor();

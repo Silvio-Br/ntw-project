@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../shared/services/auth.service";
-import {ApiService} from "../shared/services/api.service";
-import {User} from "../shared/types/user.type";
+import {AuthService} from "../services/auth.service";
+import {ApiService} from "../services/api.service";
+import {User} from "../types/user.type";
 
 @Component({
   selector: 'app-profil',

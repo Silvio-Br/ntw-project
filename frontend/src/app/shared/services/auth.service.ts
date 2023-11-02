@@ -69,4 +69,9 @@ export class AuthService {
     localStorage.removeItem(TOKEN_NAME);
     this._isLoggedIn$.next(false);
   }
+
+  isAdmin() {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken.role === 'admin';
+  }
 }
