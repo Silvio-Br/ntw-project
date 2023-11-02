@@ -23,6 +23,14 @@
         </tbody>
       </table>
     </div>
+    <!-- Pagination -->
+    <div>
+      <ul class="pagination">
+        <li style="cursor: pointer" class="page-item" *ngFor="let index of pages">
+          <a class="page-link" (click)="changePage(index)" >{{index}}</a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="card-body pt-4" *ngIf="absences.length == 0">
     <p>Vous n'avez pas d'absences</p>
