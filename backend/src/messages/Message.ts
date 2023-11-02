@@ -13,7 +13,7 @@ export const MessageSchema = new Schema<Message>({
     from: { type: String, required: true },
     to: { type: String, required: true },
     message: { type: String, required: true },
-    date: { type: Date, required: false },
+    date: { type: Date, default: Date.now },
     seen: { type: Boolean, default: false },
     lastSeen: { type: Date, required: false },
 });

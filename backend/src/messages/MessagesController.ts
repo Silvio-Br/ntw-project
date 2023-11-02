@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
 import { CreateMessageDto } from './CreateMessageDto';
 import { MessagesService } from './MessagesService ';
 import { Message } from './Message';
+import { UpdateMessageDto } from './UpdateMessageDto ';
 
 @Controller('messages')
 export class MessagesController {
@@ -30,4 +31,8 @@ export class MessagesController {
         return this.messageModel.findByIdAndRemove(id).exec();
     }
     // Implement other CRUD endpoints
+    @Put(':id')
+async update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto): Promise<Message> {
+  return this.messagesService.update(id, updateMessageDto);
+}
 }

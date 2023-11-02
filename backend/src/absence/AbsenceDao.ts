@@ -37,4 +37,17 @@ export class AbsenceDao {
   async findByStudentId(studentId: string): Promise<Absence[]> {
     return this.absenceModel.find({ etudiantId: studentId }).exec();
   }
+  async updateEtat(id: string, etat: string): Promise<Absence> {
+    const updatedAbsence = await this.absenceModel.findByIdAndUpdate(
+      id,
+      { etat }, // Update only the etat property
+      { new: true }
+    ).exec();
+
+    if (!updatedAbsence) {
+      throw new Error(`Absence avec l'ID ${id} non trouvée.`);
+    }
+
+    return updatedAbsence;
+  }
 }

@@ -3,6 +3,7 @@
 import { Controller, Get, Post, Param, Body, Put, Delete } from '@nestjs/common';
 import { AbsenceService } from './AbsenceService';
 import { AbsenceDto } from './AbsenceDto';
+import { UpdateAbsenceEtatDto } from './UpdateAbsenceEtatDto ';
 
 @Controller('absences')
 export class AbsenceController {
@@ -41,5 +42,9 @@ export class AbsenceController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.absenceService.delete(id);
+  }
+  @Put('etat/:id') // Use a different route for updating etat
+  updateEtat(@Param('id') id: string, @Body() updateAbsenceEtatDto: UpdateAbsenceEtatDto) {
+    return this.absenceService.updateEtat(id, updateAbsenceEtatDto.etat);
   }
 }

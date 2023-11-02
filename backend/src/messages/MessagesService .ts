@@ -2,6 +2,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateMessageDto } from './CreateMessageDto';
 import { Message } from './Message';
+import { UpdateMessageDto } from './UpdateMessageDto ';
 
 export class MessagesService {
     constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) {}
@@ -39,5 +40,15 @@ export class MessagesService {
         }
     }
 
-  
+    async update(id: string, updateMessageDto: UpdateMessageDto): Promise<Message> {
+        const updatedMessage = await this.messageModel.findByIdAndUpdate(
+          id,
+          { seen: updateMessageDto.seen },
+          { new: true }, // To get the updated document
+        ).exec();
+        if (!updatedMessage) {
+          throw new Error(`Message with ID ${id} not found.`);
+        }
+        return updatedMessage;
+      }
 }

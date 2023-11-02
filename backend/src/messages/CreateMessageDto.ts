@@ -1,4 +1,4 @@
-import { IsString, IsDate, IsOptional } from 'class-validator';
+import { IsString, IsDate, IsOptional, IsBoolean } from 'class-validator';
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Type } from "@nestjs/class-transformer";
 
@@ -33,13 +33,11 @@ export class CreateMessageDto {
     @Type(() => String)
     message?: string;
 
-    @ApiProperty({
-        description: 'Message date',
-        example: '2023-10-23T10:00:00Z',
-    })
-    @IsDate()
+    @IsBoolean()
     @IsOptional()
     @Expose()
-    @Type(() => Date)
-    date?: Date;
+    @Type(() => Boolean)
+    seen?: boolean;
+
+  
 }

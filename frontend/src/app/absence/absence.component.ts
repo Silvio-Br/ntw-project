@@ -9,36 +9,44 @@ import { Absence } from './absence.model';
   styleUrls: ['./absence.component.css']
 })
 export class AbsenceComponent {
-  
-  constructor(private route: ActivatedRoute,private http: HttpClient) {
-    this.route.paramMap.subscribe(params => {
-      const studentIdString = params.get('studentId');
-  
-      // Convert the studentIdString to a number if needed
-      console.log(studentIdString); // Assuming it's a base-10 integer
-    });
-  }
+ 
 
-  absence: any = {}; // Create an object to store form data
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  this.route.paramMap.subscribe(params => {
+    const studentIdString = params.get('studentId');
+
+    // Check if studentIdString is not null
+    if (studentIdString !== null) {
+      // Set the value of etudiantId in the absence object
+      this.absence.etudiantId = studentIdString;
+    }
+  });
+}
+
+  absence: Absence = new Absence(); // Initialize your absence object with default values
+  showAlert = false;
+  
+
   onSubmit() {
-    const date = new Date(this.absence.datetimeAbsence);
-  
-    // Format the date as a string in the required format (yyyy-MM-ddThh:mm).
-    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-   const date1= formattedDate.toString();
-    // Update the absence object with the formatted date.
-    this.absence.datetimeAbsence =date1;
-  
-    this.http.post('http://localhost:3000/absences', this.absence).subscribe(
-      (data) => {
-        console.log('Absence registration successful:', data);
-        // You can perform additional actions here, such as clearing the form or displaying a success message.
-      },
-      (error) => {
-        console.error('Error registering absence:', error);
-        // Handle error cases here.
-      }
-    );
-  }
+    // Make an HTTP POST request to your NestJS backend
+    if (this.absence.dateAbsence && this.absence.dateAbsenceto) {
+    const dateFrom = new Date(this.absence.dateAbsence);
+    const dateTo = new Date(this.absence.dateAbsenceto);
+    if (dateFrom >= dateTo) {
+      this.showAlert = true;
+      }else{
+        this.showAlert = false;
+        this.http.post('http://localhost:3000/absences', this.absence)
+      .subscribe(
+        (response) => {
+          console.log('Absence created successfully:', response);
+          // Handle success, e.g., navigate to a success page or reset the form
+        },
+        (error) => {
+          console.error('Error creating absence:', error);
+          // Handle errors, e.g., display an error message to the user
+        }
+      );
+  }}}
   
 }

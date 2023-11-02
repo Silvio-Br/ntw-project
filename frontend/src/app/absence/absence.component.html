@@ -375,36 +375,43 @@
                                       </div>
                                       <div class="form-group col-md-6">
                                         <label for="etudiantId">Student ID:</label>
-                                        <input type="text" class="form-control" id="etudiantId" name="etudiantId" [(ngModel)]="absence.etudiantId" required><br>
-                                      
-                                      </div>
+                                        <input type="text" class="form-control" id="etudiantId" name="etudiantId" [(ngModel)]="absence.etudiantId" required readonly>
+                                    </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="etat">Status:</label>
-                                        <input type="text" class="form-control" id="etat" name="etat" [(ngModel)]="absence.etat" required><br>
-                                    </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="etat" id="justified" [(ngModel)]="absence.etat" value="justified" required>
+                                          <label class="form-check-label" for="justified">Justified</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="etat" id="unjustified" [(ngModel)]="absence.etat" value="unjustified" required>
+                                          <label class="form-check-label" for="unjustified">Unjustified</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="etat" id="waiting" [(ngModel)]="absence.etat" value="waiting" required>
+                                          <label class="form-check-label" for="waiting">Waiting</label>
+                                        </div>
+                                      </div>
                                     <div class="form-group">
                                         <label for="matiere">Subject:</label>
                                         <input type="text" class="form-control" id="matiere" name="matiere" [(ngModel)]="absence.matiere" required><br>
                                     </div>
                                     <div class="form-row">
-                                      <div class="form-group col-md-6">
-                                        <label for="dateAbsence">Absence Date from:</label>
-                                        <input type="datetime-local" class="form-control" id="datetimeAbsence" name="datetimeAbsence" [(ngModel)]="absence.datetimeAbsence" required><br>
-                                    </div>
-                                      
-                                      
-                                    </div>
-                                    <div class="form-row">
                                         <div class="form-group col-md-6">
-                                          <label for="dateAbsence">Absence Date to:</label>
-                                          <input type="datetime-local" class="form-control" id="datetimeAbsenceto" name="datetimeAbsence" [(ngModel)]="absence.datetimeAbsence" required><br>
+                                          <label for="dateAbsenceFrom">Absence Date From:</label>
+                                          <input type="datetime-local" class="form-control" id="datetimeAbsenceFrom" name="datetimeAbsenceFrom" [(ngModel)]="absence.dateAbsence" required>
+                                        </div>
+                                      
+                                        <div class="form-group col-md-6">
+                                          <label for="dateAbsenceTo">Absence Date To:</label>
+                                          <input type="datetime-local" class="form-control" id="datetimeAbsenceTo" name="datetimeAbsenceTo" [(ngModel)]="absence.dateAbsenceto" required>
+                                        </div>
                                       </div>
-                                        
-                                        
+                                    <button type="submit" class="btn btn-primary">register absence</button>
+                                    <div *ngIf="showAlert" class="alert alert-danger">
+                                        Absence Date From must be earlier than Absence Date To.
                                       </div>
-                                
-                                    <button type="submit" class="btn btn-primary">Sign in</button>
                                   </form>
                             </div>
                         </div>
@@ -420,7 +427,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                      
                     </div>
                 </div>
             </footer>

@@ -19,11 +19,5 @@ export class StudentsComponent implements OnInit {
 
 
   }
-  createAbsence(student: any) {
-    // Logic to create a new absence for the selected student
-  }
-
-  sendMessage(student: any) {
-    // Logic to send a message to the selected student
-  }
+ 
 }

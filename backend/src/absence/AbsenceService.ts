@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AbsenceDao } from './AbsenceDao';
 import { AbsenceDto } from './AbsenceDto';
 import { Absence } from './AbsenceSchema';
+import { UpdateAbsenceEtatDto } from './UpdateAbsenceEtatDto ';
 
 @Injectable()
 export class AbsenceService {
@@ -9,7 +10,6 @@ export class AbsenceService {
 
   async create(absenceDto: AbsenceDto): Promise<Absence> {
     try {
-      
       return await this.absenceDao.create(absenceDto);
     } catch (error) {
       throw new Error('Erreur lors de la création de labsence.');
@@ -61,6 +61,14 @@ export class AbsenceService {
       return await this.absenceDao.findByStudentId(studentId);
     } catch (error) {
       throw new Error(`Erreur lors de la recherche des absences pour l'étudiant avec l'ID ${studentId}.`);
+    }
+  }
+
+  async updateEtat(id: string, etat: string): Promise<Absence> {
+    try {
+      return await this.absenceDao.updateEtat(id, etat);
+    } catch (error) {
+      throw new Error(`Erreur lors de la mise à jour de l'etat de l'absence avec l'ID ${id}.`);
     }
   }
 }

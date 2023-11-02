@@ -259,61 +259,7 @@
                                 <span class="badge badge-danger badge-counter">7</span>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
+                            <app-message-list></app-message-list>
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -363,40 +309,64 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">List des Etudiant</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">List des absence</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <input type="text" [(ngModel)]="searchDate" (keyup)="filterAbsences()">
+
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                      <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Action</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr *ngFor="let student of students">
-                                        <td>{{ student.firstname }}</td>
-                                        <td>{{ student.lastname }}</td>
-                                        <td>{{ student.email }}</td>
-                                        <td>{{ student.phone }}</td>
-                                        <td>
-                                            <div class="btn-group">
-                                              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Actions
-                                              </button>
-                                              <div class="dropdown-menu">
-                                                <a class="dropdown-item" [routerLink]="['/absence', student._id]">Create New Absence</a>
-                                                <a class="dropdown-item" [routerLink]="['/sendMessage', student.email]">Send Message</a>
-                                              </div>
-                                            </div>
-                                          </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                                  <thead>
+                                    <tr>
+                                      <th>Etudiant ID</th>
+                                      <th>Etat</th>
+                                      <th>Matiere</th>
+                                      <th>Date</th>
+                                      <th>Date d'Absence</th>
+                                      <th>Date d'Absence To</th>
+                                      <th>supprimer</th> 
+                                      <th>modifier state</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let absence of absences">
+                                      <td>{{ absence.etudiantId }}</td>
+                                      <td [ngClass]="{
+                                        'bg-success': absence.etat === 'justified',
+                                        'bg-danger': absence.etat === 'unjustified',
+                                        'bg-warning': absence.etat === 'waiting'
+                                      }">{{ absence.etat }}</td>
+                                      <td>{{ absence.matiere }}</td>
+                                      <td>{{ absence.date | date }}</td>
+                                      <td>{{ formatAbsenceDate(absence.dateAbsence, 'date') }}- {{ formatAbsenceDate(absence.dateAbsence, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsence, 'minutes') }}</td>
+                                      <td>{{ formatAbsenceDate(absence.dateAbsenceto, 'date') }}- {{ formatAbsenceDate(absence.dateAbsenceto, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsenceto, 'minutes') }}</td>
+                                      <td>
+                                        <button class="btn btn-danger" (click)="deleteAbsence(absence._id)">Supprimer</button>
+                                      </td>
+                                      <td>
+                                        <button class="btn btn-primary" (click)="toggleStateUpdate(absence)">Modifier</button>
+                                        <div *ngIf="absence.showStateUpdate">
+                                          <!-- Display state update options and save button -->
+                                          <div class="form-check">
+                                            <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'justified'">
+                                            <label class="form-check-label">Justified</label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'unjustified'">
+                                            <label class="form-check-label">Unjustified</label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'waiting'">
+                                            <label class="form-check-label">Waiting</label>
+                                          </div>
+                                          <button class="btn btn-primary" (click)="updateState(absence)">Save</button>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                
+                                  
                             </div>
                         </div>
                     </div>

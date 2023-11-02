@@ -51,4 +51,8 @@ export class AbsenceDto {
   @IsNotEmpty()
   @Expose()
     dateAbsence: string;
+    @IsString()
+  @IsNotEmpty()
+  @Expose()
+    dateAbsenceto: string;
 }

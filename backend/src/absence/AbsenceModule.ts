@@ -6,13 +6,14 @@ import { AbsenceController } from './AbsenceController';
 import { AbsenceService } from './AbsenceService';
 import { AbsenceDao } from './AbsenceDao';
 import { Absence, AbsenceSchema } from './AbsenceSchema';
+import { EmailService } from './EmailService';
 
 @Module({
     imports: [
       MongooseModule.forFeature([{ name :Absence.name, schema: AbsenceSchema }]),
     ],
     controllers: [AbsenceController],
-    providers: [AbsenceService, AbsenceDao],
+    providers: [AbsenceService, AbsenceDao,EmailService],
     
     
   })

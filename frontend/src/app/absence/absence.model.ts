@@ -1,9 +1,11 @@
 export class Absence {
-    constructor(
-      public enseignantId: string,
-      public etudiantId: string,
-      public etat: string,
-      public matiere: string,
-      public dateAbsence: Date
-    ) {}
-  }
+    _id: string | undefined;
+    enseignantId: string | undefined;
+    etudiantId: string | undefined;
+    etat: string | undefined;
+    dateAbsence: Date | undefined;
+    matiere: string | undefined;
+    dateAbsenceto: string | undefined; // Add dateAbsence property
+
+
+  }    

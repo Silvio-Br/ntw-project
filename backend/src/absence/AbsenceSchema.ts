@@ -7,6 +7,7 @@ export const AbsenceSchema = new mongoose.Schema({
     matiere: { type: String, required: true }, // Ajout du champ pour le nom de la matière
     date: { type: Date, default: Date.now },
     dateAbsence: { type: String, required:true },
+    dateAbsenceto: { type: String, required:true },
 
   });
   export class Absence extends mongoose.Document {
