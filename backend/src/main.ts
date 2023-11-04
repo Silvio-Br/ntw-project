@@ -13,9 +13,14 @@ import {StudentsModule} from "./student/students.module";
 import * as passport from "passport";
 import * as session from "express-session";
 import {AuthModule} from "./auth/auth.module";
-import {AbsenceModule} from "./absence/AbsenceModule";
+import {AbsenceModule} from "./absence/absence.module";
 import {MessagesModule} from "./messages/messages.module";
 import * as multer from 'multer';
+import {AdminStrategy} from "./auth/strategy/admin.strategy";
+import {ProfessorStrategy} from "./auth/strategy/professor.strategy";
+import {StudentStrategy} from "./auth/strategy/student.strategy";
+import {LocalStrategy} from "./auth/strategy/local.strategy";
+import {JwtStrategy} from "./auth/strategy/jwt.strategy";
 
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
@@ -32,6 +37,12 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
             saveUninitialized: false,
         })
     )
+    passport.use('admin', new AdminStrategy)
+    passport.use('professor', new ProfessorStrategy)
+    passport.use('student', new StudentStrategy)
+    passport.use('jwt', new JwtStrategy())
+
+
     app.use(passport.initialize())
     app.use(passport.session())
     app.enableCors();

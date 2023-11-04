@@ -3,8 +3,8 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Absence } from './AbsenceSchema';
-import { AbsenceDto } from './AbsenceDto';
+import { Absence } from '../schema/absence.schema';
+import { AbsenceDto } from '../dto/absence.dto';
 
 @Injectable()
 export class AbsenceDao {

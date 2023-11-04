@@ -9,9 +9,8 @@
         <div class="small text-gray-500">{{ message.from }} · {{ message.date | date }}</div>
       </div>
     </a>
-    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+    <a style="cursor: default" class="dropdown-item text-center small text-gray-500" *ngIf="messages.length === 0">Aucun messages.</a>
   </div>
-  
+
   <!-- Add the message card component -->
   <app-message-card *ngIf="showFullMessage"[thesender]="selectedMessage" [fullMessage]="selectedMessage" (collapsed)="collapseMessageCard()"></app-message-card>
-  

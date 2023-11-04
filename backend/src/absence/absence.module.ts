@@ -2,11 +2,11 @@
 
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AbsenceController } from './AbsenceController';
-import { AbsenceService } from './AbsenceService';
-import { AbsenceDao } from './AbsenceDao';
-import { Absence, AbsenceSchema } from './AbsenceSchema';
-import { EmailService } from './EmailService';
+import { AbsenceController } from './absence.controller';
+import { AbsenceService } from './absence.service';
+import { AbsenceDao } from './dao/absence.dao';
+import { Absence, AbsenceSchema } from './schema/absence.schema';
+import { EmailService } from './email.service';
 
 @Module({
     imports: [

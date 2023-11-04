@@ -12,7 +12,14 @@ export class UnAuthGuard implements CanActivate {
 
   canActivate(){
     if (this._authService.isAuthenticated()) {
-      this._router.navigate(['/home']);
+      let role = this._authService.user.role;
+      if (role === 'student') {
+        this._router.navigate(['/student/my-absences']);
+      } else if (role === 'professor') {
+        this._router.navigate(['/professor/students']);
+      } else if (role === 'admin') {
+        this._router.navigate(['/admin/students']);
+      }
       return false;
     } else {
       return true;

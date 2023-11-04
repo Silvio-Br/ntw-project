@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Param, Delete} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Put} from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { MessagesService } from './messages.service';
 import { Message } from './schema/message.schema';
@@ -10,6 +10,7 @@ import {
     ApiOkResponse,
     ApiParam, ApiTags
 } from "@nestjs/swagger";
+import {UpdateMessageDto} from "./dto/update-message.dto";
 
 
 @ApiTags('messages')
@@ -84,4 +85,20 @@ export class MessagesController {
         return this.messageModel.findByIdAndRemove(id).exec();
     }
     // Implement other CRUD endpoints
+
+    @ApiOkResponse({
+        description: 'The message has been successfully updated',
+        type: Message,
+    })
+    @ApiBadRequestResponse({description: 'Validation failed'})
+    @ApiParam({
+        name: 'id',
+        description: 'Unique identifier of the message in the database',
+        type: String,
+        allowEmptyValue: false,
+    })
+    @Put(':id')
+    async update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto): Promise<Message> {
+        return this.messagesService.update(id, updateMessageDto);
+    }
 }

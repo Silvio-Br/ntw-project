@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MessageService } from './message.service';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-send-message',
@@ -22,7 +22,7 @@ export class SendMessageComponent {
     private aut:AuthService
   ) {
     this.route.params.subscribe(params => {
-      this.messages.to = params['email']; 
+      this.messages.to = params['email'];
       this.messages.from= this.aut.email
       console.log(this.messages.to )// Get the email parameter from the route
     });

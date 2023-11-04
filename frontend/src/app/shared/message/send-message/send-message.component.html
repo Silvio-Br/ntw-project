@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Create new absence</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Envoyer un message</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -17,10 +17,10 @@
                   <label for="messageContent">Message:</label>
                   <textarea class="form-control" id="messageContent" name="message" [(ngModel)]="messages.message" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
               </form>
               <div *ngIf="success" class="alert alert-success mt-3">
-                <strong>Success!</strong> The message has been sent.
+                Le message a été envoyé avec succès !
               </div>
         </div>
     </div>

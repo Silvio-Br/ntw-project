@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Absence } from './absence.model';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-absence',
@@ -10,7 +10,7 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./absence.component.css']
 })
 export class AbsenceComponent {
- 
+
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private aut:AuthService) {
   this.route.paramMap.subscribe(params => {
@@ -27,7 +27,7 @@ export class AbsenceComponent {
 
   absence: Absence = new Absence(); // Initialize your absence object with default values
   showAlert = false;
-  
+
 
   onSubmit() {
     // Make an HTTP POST request to your NestJS backend
@@ -50,5 +50,5 @@ export class AbsenceComponent {
         }
       );
   }}}
-  
+
 }

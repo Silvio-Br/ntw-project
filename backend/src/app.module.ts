@@ -7,8 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import * as Config from 'config';
 
 import { MessagesModule } from './messages/messages.module';
-import { AbsenceModule } from './absence/AbsenceModule';
-
+import {AbsenceModule} from "./absence/absence.module";
 
 
 @Module({
@@ -20,8 +19,6 @@ import { AbsenceModule } from './absence/AbsenceModule';
         AuthModule,
         AbsenceModule,
         MessagesModule,
-        
-     
     ],
 })
 export class AppModule {

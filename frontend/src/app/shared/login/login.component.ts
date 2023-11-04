@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   getEmail(): string {
     return this.mail;
-  } 
+  }
   constructor(private readonly _authService: AuthService, private readonly _router: Router) {
     this._form = this._buildForm();
   }
@@ -54,7 +54,14 @@ export class LoginComponent implements OnInit {
       () => {
         this._failedLogin = false;
         this.setEmail(form.email)
-        this._router.navigate(['/']);
+        let role = this._authService.user.role;
+        if (role === 'student') {
+          this._router.navigate(['/student/my-absences']);
+        } else if (role === 'professor') {
+          this._router.navigate(['/professor/students']);
+        } else if (role === 'admin') {
+          this._router.navigate(['/admin/students']);
+        }
       },
       () => {
         this._failedLogin = true;

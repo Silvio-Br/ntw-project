@@ -6,7 +6,7 @@ import {
     Get, NotFoundException,
     Param,
     Post,
-    Put,
+    Put, UseGuards,
     UseInterceptors
 } from '@nestjs/common';
 import {UsersService} from "../users/users.service";
@@ -24,6 +24,7 @@ import {UpdateUserDto} from "../users/dto/update-user.dto";
 import {HandlerParams} from "../users/validator/handler-param";
 import {User} from "../users/schema/user.schema";
 import {AuthService} from "../auth/auth.service";
+import {AuthGuard} from "@nestjs/passport";
 
 @ApiTags('students')
 @Controller('students')
@@ -39,6 +40,7 @@ export class StudentsController {
         isArray: true,
     })
     @ApiNoContentResponse({description: 'No student exists in database'})
+    @UseGuards(AuthGuard('professor'))
     @Get()
     findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('student');
@@ -56,6 +58,7 @@ export class StudentsController {
         type: String,
         allowEmptyValue: false,
     })
+    @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     findOne(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('student', params.id);
@@ -73,6 +76,7 @@ export class StudentsController {
         description: 'Payload to create a new student',
         type: CreateUserDto,
     })
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     create(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'student');
@@ -95,6 +99,7 @@ export class StudentsController {
         allowEmptyValue: false,
     })
     @ApiBody({description: 'Payload to update a student', type: UpdateUserDto})
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id')
     update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
         jwt: string;
@@ -140,6 +145,7 @@ export class StudentsController {
         type: String,
         allowEmptyValue: false,
     })
+    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
     delete(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.delete(params.id);

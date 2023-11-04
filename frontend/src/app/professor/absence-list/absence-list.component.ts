@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbsenceListService } from './absence-list.service';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-absence-list',
@@ -20,7 +20,7 @@ export class AbsenceListComponent {
     this.loadAbsences();
     console.log(this.aut.id)
   }
- 
+
   loadAbsences() {
     this.absenceService.getAllAbsences(this.aut.id).subscribe((data: any) => {
       this.absences = data;
@@ -33,9 +33,9 @@ export class AbsenceListComponent {
     } else {
       // Filter absences based on the searchDate
       if(this.absences!=undefined)
-    
+
       this.absences = this.absences.filter((absence) => {
-    
+
         const formattedDate = new Date(absence.date).toDateString(); // Format the date as needed
         return formattedDate.includes(this.searchDate);
       });
@@ -60,17 +60,17 @@ export class AbsenceListComponent {
         return '';
     }
   }
-  
+
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return date.toLocaleDateString(undefined, options);
   }
-  
+
   formatHours(date: Date): string {
     const hours = date.getHours().toString().padStart(2, '0');
     return hours;
   }
-  
+
   formatMinutes(date: Date): string {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return minutes;
@@ -84,5 +84,5 @@ export class AbsenceListComponent {
   toggleStateUpdate(absence: any) {
     absence.showStateUpdate = !absence.showStateUpdate;
   }
- 
+
 }

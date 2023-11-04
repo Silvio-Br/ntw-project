@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List des absence</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Liste des absences</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -10,13 +10,13 @@
               <thead>
                 <tr>
                   <th>Etudiant ID</th>
-                  <th>Etat</th>
+                  <th>État</th>
                   <th>Matiere</th>
                   <th>Date</th>
-                  <th>Date d'Absence</th>
-                  <th>Date d'Absence To</th>
-                  <th>supprimer</th> 
-                  <th>modifier state</th>
+                  <th>Date début d'absence</th>
+                  <th>Date fin d'absence</th>
+                  <th>Supprimer</th>
+                  <th>Modifier l'état</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,24 +40,24 @@
                       <!-- Display state update options and save button -->
                       <div class="form-check">
                         <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'justified'">
-                        <label class="form-check-label">Justified</label>
+                        <label class="form-check-label">Justifiée</label>
                       </div>
                       <div class="form-check">
                         <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'unjustified'">
-                        <label class="form-check-label">Unjustified</label>
+                        <label class="form-check-label">Injustifiée</label>
                       </div>
                       <div class="form-check">
                         <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'waiting'">
-                        <label class="form-check-label">Waiting</label>
+                        <label class="form-check-label">En attente</label>
                       </div>
-                      <button class="btn btn-primary" (click)="updateState(absence)">Save</button>
+                      <button class="btn btn-primary" (click)="updateState(absence)">Sauvegarder</button>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-            
-              
+
+
         </div>
     </div>
 </div>
