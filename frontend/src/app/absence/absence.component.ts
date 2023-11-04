@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Absence } from './absence.model';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-absence',
@@ -11,7 +12,7 @@ import { Absence } from './absence.model';
 export class AbsenceComponent {
  
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private aut:AuthService) {
   this.route.paramMap.subscribe(params => {
     const studentIdString = params.get('studentId');
 
@@ -19,6 +20,7 @@ export class AbsenceComponent {
     if (studentIdString !== null) {
       // Set the value of etudiantId in the absence object
       this.absence.etudiantId = studentIdString;
+      this.absence.enseignantId=this.aut.id
     }
   });
 }

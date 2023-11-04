@@ -10,8 +10,12 @@ export class AbsenceListService {
   private apiUrlupdtae = 'http://localhost:3000/absences/etat'
   constructor(private http: HttpClient) { }
 
-  getAllAbsences() {
-    return this.http.get(this.apiUrl);
+  getAllAbsences(professorId: String) {
+    // Construct the dynamic URL by interpolating the professorId
+    const dynamicUrl = `${this.apiUrl}/professor/${professorId}`;
+    
+    // Make the HTTP GET request using the dynamic URL
+    return this.http.get(dynamicUrl);
   }
   delete(id: string) {
     return this.http.delete(`${this.apiUrl}/${id}`);

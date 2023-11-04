@@ -1,13 +1,10 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-<<<<<<< HEAD:backend/src/messages/MessagesService .ts
-import { CreateMessageDto } from './CreateMessageDto';
-import { Message } from './Message';
+
 import { UpdateMessageDto } from './UpdateMessageDto ';
-=======
 import { CreateMessageDto } from './dto/create-message.dto';
 import { Message } from './schema/message.schema';
->>>>>>> b2d86b2c5d8448a21aaf37533d2836c2ec408955:backend/src/messages/messages.service.ts
+
 
 export class MessagesService {
     constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) {}

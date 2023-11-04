@@ -1,0 +1,33 @@
+
+<!-- professors.component.html -->
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let professor of students">
+        <td>{{ professor.firstname }}</td>
+        <td>{{ professor.lastname }}</td>
+        <td>{{ professor.email }}</td>
+        <td>{{ professor.phone }}</td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Actions
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/sendMessage', professor.email]">Send Message</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbsenceListService } from './absence-list.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-absence-list',
@@ -13,14 +14,15 @@ export class AbsenceListComponent {
 
 
 
-  constructor(private absenceService: AbsenceListService) { }
+  constructor(private absenceService: AbsenceListService,private aut:AuthService) { }
 
   ngOnInit(): void {
     this.loadAbsences();
+    console.log(this.aut.id)
   }
  
   loadAbsences() {
-    this.absenceService.getAllAbsences().subscribe((data: any) => {
+    this.absenceService.getAllAbsences(this.aut.id).subscribe((data: any) => {
       this.absences = data;
     });
   }

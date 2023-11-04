@@ -1,6 +1,6 @@
 export class Absence {
     _id: string | undefined;
-    enseignantId: string | undefined;
+    enseignantId: String | undefined;
     etudiantId: string | undefined;
     etat: string | undefined;
     dateAbsence: Date | undefined;

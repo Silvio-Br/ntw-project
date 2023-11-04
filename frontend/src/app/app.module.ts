@@ -1,24 +1,18 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-<<<<<<< HEAD
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+
 import { StudentsComponent } from './students/students.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AbsenceComponent } from './absence/absence.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AbsenceListComponent } from './absence-list/absence-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
 import { MessageCardComponent } from './message-card/message-card.component';
 import { SendMessageComponent } from './send-message/send-message.component';
-=======
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {StudentsComponent} from './students/students.component';
-import {HttpClientModule} from '@angular/common/http';
-import {AbsenceComponent} from './absence/absence.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './shared/login/login.component';
 import { MatCardModule } from '@angular/material/card';
@@ -38,19 +32,20 @@ import { ListStudentsComponent } from './admin/list-students/list-students.compo
 import { ListProfessorsComponent } from './admin/list-professors/list-professors.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
 import { TableUsersComponent } from './shared/components/table-users/table-users.component';
->>>>>>> b2d86b2c5d8448a21aaf37533d2836c2ec408955
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ProfessorsComponent } from './professors/professors.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentsComponent,
     AbsenceComponent,
-<<<<<<< HEAD
+
     AbsenceListComponent,
     MessageListComponent,
     MessageCardComponent,
-        SendMessageComponent,
-=======
+    SendMessageComponent,
     HomeComponent,
     LoginComponent,
     ProfilComponent,
@@ -60,8 +55,9 @@ import { TableUsersComponent } from './shared/components/table-users/table-users
     ListStudentsComponent,
     ListProfessorsComponent,
     AddUserComponent,
-    TableUsersComponent
->>>>>>> b2d86b2c5d8448a21aaf37533d2836c2ec408955
+    TableUsersComponent,
+    ProfessorsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -76,7 +72,8 @@ import { TableUsersComponent } from './shared/components/table-users/table-users
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxPaginationModule
   ],
   providers: [JwtHelperService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }],
   bootstrap: [AppComponent]

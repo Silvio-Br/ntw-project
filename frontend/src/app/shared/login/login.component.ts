@@ -12,7 +12,15 @@ export class LoginComponent implements OnInit {
 
   private readonly _form: FormGroup;
   private _failedLogin: boolean = false;
+  private mail: string = '';
 
+  setEmail(email: string) {
+    this.mail = email;
+  }
+
+  getEmail(): string {
+    return this.mail;
+  } 
   constructor(private readonly _authService: AuthService, private readonly _router: Router) {
     this._form = this._buildForm();
   }
@@ -45,6 +53,7 @@ export class LoginComponent implements OnInit {
     this._authService.login(form.email, form.password).subscribe(
       () => {
         this._failedLogin = false;
+        this.setEmail(form.email)
         this._router.navigate(['/']);
       },
       () => {

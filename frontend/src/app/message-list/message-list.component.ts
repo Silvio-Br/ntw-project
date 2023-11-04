@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from './message.service';
 import { Message } from './message';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-message-list',
@@ -12,11 +13,12 @@ export class MessageListComponent implements OnInit {
   showFullMessage: boolean = false;
   selectedMessage: string = '';
   thesender: string = '';
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService,private aut:AuthService) {}
 
   ngOnInit(): void {
-    this.messageService.findAll().subscribe((data: Message[]) => {
+    this.messageService.findAll(this.aut.email).subscribe((data: Message[]) => {
       this.messages = data;
+      console.log(this.aut.email)
     });
   }
   showMessage(message: any) {

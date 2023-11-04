@@ -13,8 +13,9 @@ import {StudentsModule} from "./student/students.module";
 import * as passport from "passport";
 import * as session from "express-session";
 import {AuthModule} from "./auth/auth.module";
-import {AbsencesModule} from "./absence/absences.module";
+import {AbsenceModule} from "./absence/AbsenceModule";
 import {MessagesModule} from "./messages/messages.module";
+import * as multer from 'multer';
 
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
@@ -23,6 +24,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
         new FastifyAdapter({logger: true}),
     );
     //app.setGlobalPrefix('api')
+    
     app.use(
         session({
             secret: "keyboard",
@@ -33,13 +35,22 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
     app.use(passport.initialize())
     app.use(passport.session())
     app.enableCors();
+    
     await app.useGlobalPipes(
         new ValidationPipe({
             whitelist: true,
             forbidNonWhitelisted: true,
         }),
     );
-
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+          cb(null, './uploads'); // Define the destination directory for file uploads
+        },
+        filename: (req, file, cb) => {
+          cb(null, file.originalname);
+        },
+      });
+      app.use(multer({ storage: storage }).any());
     const options = new DocumentBuilder()
         .setTitle(swaggerConfig.title)
         .setDescription(swaggerConfig.description)
@@ -48,7 +59,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
     // create swagger document
     const userDocument = SwaggerModule.createDocument(app, options, {
-        include: [ProfessorsModule, StudentsModule, AbsencesModule, MessagesModule, AuthModule],
+        include: [ProfessorsModule, StudentsModule, AbsenceModule, MessagesModule, AuthModule],
     });
 
     // setup swagger module

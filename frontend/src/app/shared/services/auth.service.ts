@@ -60,7 +60,15 @@ export class AuthService {
     const decodedToken = this.jwtHelper.decodeToken(this.token);
     return decodedToken.lastname;
   }
+  get email(): string {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken.email;
+  }
+    get id():String {
+    const decodedToken = this.jwtHelper.decodeToken(this.token);
+    return decodedToken._id;
 
+}
   updateToken(jwt: any) {
     localStorage.setItem(TOKEN_NAME, jwt);
   }
