@@ -40,8 +40,8 @@ export class StudentsController {
         isArray: true,
     })
     @ApiNoContentResponse({description: 'No student exists in database'})
-    @UseGuards(AuthGuard('professor'))
     @Get()
+    @UseGuards(AuthGuard('jwt'))
     findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('student');
     }
@@ -58,8 +58,8 @@ export class StudentsController {
         type: String,
         allowEmptyValue: false,
     })
-    @UseGuards(AuthGuard('jwt'))
     @Get(':id')
+    @UseGuards(AuthGuard('jwt'))
     findOne(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('student', params.id);
     }
@@ -76,8 +76,8 @@ export class StudentsController {
         description: 'Payload to create a new student',
         type: CreateUserDto,
     })
-    @UseGuards(AuthGuard('jwt'))
     @Post()
+    @UseGuards(AuthGuard('admin'))
     create(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'student');
     }
@@ -99,8 +99,8 @@ export class StudentsController {
         allowEmptyValue: false,
     })
     @ApiBody({description: 'Payload to update a student', type: UpdateUserDto})
-    @UseGuards(AuthGuard('jwt'))
     @Put(':id')
+    @UseGuards(AuthGuard('student'))
     update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
         jwt: string;
         user: User
@@ -145,8 +145,8 @@ export class StudentsController {
         type: String,
         allowEmptyValue: false,
     })
-    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
+    @UseGuards(AuthGuard('admin'))
     delete(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.delete(params.id);
     }

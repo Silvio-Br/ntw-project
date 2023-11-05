@@ -6,7 +6,7 @@ import {
     Get, NotFoundException,
     Param,
     Post,
-    Put,
+    Put, UseGuards,
     UseInterceptors
 } from '@nestjs/common';
 import {UsersService} from "../users/users.service";
@@ -23,6 +23,7 @@ import {UpdateUserDto} from "../users/dto/update-user.dto";
 import {HandlerParams} from "../users/validator/handler-param";
 import {User} from "../users/schema/user.schema";
 import {AuthService} from "../auth/auth.service";
+import {AuthGuard} from "@nestjs/passport";
 
 @ApiTags('professors')
 @Controller('professors')
@@ -39,6 +40,7 @@ export class ProfessorsController {
     })
     @ApiNoContentResponse({ description: 'No professor exists in database' })
     @Get()
+    @UseGuards(AuthGuard('jwt'))
     findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('professor');
     }
@@ -56,6 +58,7 @@ export class ProfessorsController {
         allowEmptyValue: false,
     })
     @Get(':id')
+    @UseGuards(AuthGuard('jwt'))
     findOne(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('professor', params.id);
     }
@@ -73,6 +76,7 @@ export class ProfessorsController {
         type: CreateUserDto,
     })
     @Post()
+    @UseGuards(AuthGuard('admin'))
     create(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'professor');
     }
@@ -94,6 +98,7 @@ export class ProfessorsController {
         type: String,
     })
     @Put(':id')
+    @UseGuards(AuthGuard('jwt'))
     update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
         jwt: string;
         user: User
@@ -139,6 +144,7 @@ export class ProfessorsController {
         allowEmptyValue: false,
     })
     @Delete(':id')
+    @UseGuards(AuthGuard('admin'))
     delete(@Param() { id }: HandlerParams): Observable<User | void> {
         return this._usersService.delete(id);
     }

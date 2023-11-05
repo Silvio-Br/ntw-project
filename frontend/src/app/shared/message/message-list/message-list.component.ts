@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from './message.service';
+import { MessageService } from '../../services/message.service';
 import { Message } from './message';
 import { AuthService } from '../../services/auth.service';
 
@@ -13,6 +13,7 @@ export class MessageListComponent implements OnInit {
   showFullMessage: boolean = false;
   selectedMessage: string = '';
   thesender: string = '';
+  selectedId: string = '';
   constructor(private messageService: MessageService,private aut:AuthService) {}
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class MessageListComponent implements OnInit {
     });
   }
   showMessage(message: any) {
+    this.selectedId = message._id;
     this.selectedMessage = message.message;
     this.thesender =message.from;
     this.showFullMessage = true;
@@ -29,5 +31,12 @@ export class MessageListComponent implements OnInit {
 
   collapseMessageCard() {
     this.showFullMessage = false;
+  }
+
+  deleteMessageCard() {
+    this.messageService.delete(this.selectedId).subscribe((data: Message) => {
+      this.messages = this.messages.filter((m: Message) => m.message !== this.selectedMessage);
+      this.showFullMessage = false;
+    });
   }
 }

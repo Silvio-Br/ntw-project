@@ -1,7 +1,8 @@
 <div class="card" style="z-index: 1;">
-    <div class="card-body">
-        <h5 class="card-title">Message</h5>
-        <p class="card-text">{{ fullMessage }}</p>
-        <button class="btn btn-primary" (click)="collapseCard()">close</button>
-    </div>
+  <div class="card-body">
+    <h5 class="card-title"><b>Message</b></h5>
+    <p class="card-text">{{ fullMessage }}</p>
+    <button class="btn btn-primary mr-3" (click)="collapseCard()">Fermer</button>
+    <button class="btn btn-danger" (click)="deleteCard()">Supprimer</button>
+  </div>
 </div>

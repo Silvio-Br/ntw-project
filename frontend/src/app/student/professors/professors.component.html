@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let professor of students">
+      <tr *ngFor="let professor of professors">
         <td>{{ professor.firstname }}</td>
         <td>{{ professor.lastname }}</td>
         <td>{{ professor.email }}</td>
@@ -30,3 +30,10 @@
       </tr>
     </tbody>
   </table>
+<div>
+  <ul class="pagination">
+    <li style="cursor: pointer" class="page-item" *ngFor="let index of pages">
+      <a class="page-link" (click)="changePage(index)" >{{index}}</a>
+    </li>
+  </ul>
+</div>

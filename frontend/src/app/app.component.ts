@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthService} from "./shared/services/auth.service";
 import {Router} from "@angular/router";
+import {MessageService} from "./shared/services/message.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,10 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-  constructor(private readonly _authService: AuthService, private readonly _router: Router) {
+  constructor(
+    private readonly _authService: AuthService,
+    private readonly _router: Router,
+    private readonly _messageService: MessageService) {
   }
 
   logout(): void {
@@ -45,4 +49,6 @@ export class AppComponent {
     // get user last name
     return this._authService.lastName;
   }
+
+
 }

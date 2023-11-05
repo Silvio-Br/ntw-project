@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Param, Delete, Put} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Logger} from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { MessagesService } from './messages.service';
 import { Message } from './schema/message.schema';
@@ -11,6 +11,7 @@ import {
     ApiParam, ApiTags
 } from "@nestjs/swagger";
 import {UpdateMessageDto} from "./dto/update-message.dto";
+import {AuthGuard} from "@nestjs/passport";
 
 
 @ApiTags('messages')
@@ -23,6 +24,7 @@ export class MessagesController {
     @ApiCreatedResponse({ description: 'The record has been successfully created.'})
     @ApiBadRequestResponse({ description: 'Validation failed.'})
     @ApiBody({ type: CreateMessageDto })
+    @UseGuards(AuthGuard('jwt'))
     create(@Body() createMessageDto: CreateMessageDto) {
         return this.messagesService.create(createMessageDto);
     }
@@ -35,6 +37,7 @@ export class MessagesController {
     })
     @ApiBadRequestResponse({description: 'Validation failed'})
     @ApiNoContentResponse({description: 'No message exists in database'})
+    @UseGuards(AuthGuard('jwt'))
     findAll() {
         return this.messagesService.findAll();
     }
@@ -46,6 +49,7 @@ export class MessagesController {
     })
     @ApiBadRequestResponse({description: 'Validation failed'})
     @ApiNoContentResponse({description: 'No message exists in database for this recipient'})
+    @UseGuards(AuthGuard('jwt'))
     async findByTo(@Param('to') to: string): Promise<Message[]> {
         return this.messagesService.findByTo(to);
     }
@@ -64,6 +68,7 @@ export class MessagesController {
         type: String,
         allowEmptyValue: false,
     })
+    @UseGuards(AuthGuard('jwt'))
     async findByFrom(@Param('from') from: string): Promise<Message[]> {
         return this.messagesService.findByFrom(from);
     }
@@ -81,8 +86,9 @@ export class MessagesController {
         allowEmptyValue: false,
     })
     @ApiNoContentResponse({description: 'Message with the given "id" not found'})
-    async delete(id: string): Promise<Message> {
-        return this.messageModel.findByIdAndRemove(id).exec();
+    @UseGuards(AuthGuard('jwt'))
+    async delete(@Param('id') id: string): Promise<Message | void> {
+        return this.messagesService.delete(id);
     }
     // Implement other CRUD endpoints
 
@@ -98,6 +104,7 @@ export class MessagesController {
         allowEmptyValue: false,
     })
     @Put(':id')
+    @UseGuards(AuthGuard('jwt'))
     async update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto): Promise<Message> {
         return this.messagesService.update(id, updateMessageDto);
     }

@@ -53,4 +53,12 @@ export class MessagesService {
         }
         return updatedMessage;
       }
+
+    delete(id: string): Promise<Message | void> {
+        try {
+            return this.messageModel.findByIdAndDelete(id).exec();
+        } catch (error) {
+            throw new Error(`Erreur lors de la suppression du message avec l'ID ${id}.`);
+        }
+    }
 }
