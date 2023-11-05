@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from './students.service';
+import { StudentService } from '../../shared/services/students.service';
 import { Student } from './student.model';
 
 @Component({
@@ -19,5 +19,5 @@ export class StudentsComponent implements OnInit {
 
 
   }
- 
+
 }

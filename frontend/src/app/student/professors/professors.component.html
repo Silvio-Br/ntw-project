@@ -1,39 +1,50 @@
-
 <!-- professors.component.html -->
-
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Prénom</th>
-        <th>Nom</th>
-        <th>Email</th>
-        <th>Téléphone</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let professor of professors">
-        <td>{{ professor.firstname }}</td>
-        <td>{{ professor.lastname }}</td>
-        <td>{{ professor.email }}</td>
-        <td>{{ professor.phone }}</td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Actions
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" [routerLink]="['/sendMessage', professor.email]">Envoyer un message</a>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Liste des professeurs</h6>
+  </div>
+  <div class="card-body" *ngIf="professors.length > 0">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let professor of professors">
+          <td>{{ professor.firstname }}</td>
+          <td>{{ professor.lastname }}</td>
+          <td>{{ professor.email }}</td>
+          <td>{{ professor.phone }}</td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                Actions
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" [routerLink]="['/sendMessage', professor.email]">Envoyer un message</a>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-<div>
-  <ul class="pagination">
-    <li style="cursor: pointer" class="page-item" *ngFor="let index of pages">
-      <a class="page-link" (click)="changePage(index)" >{{index}}</a>
-    </li>
-  </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div>
+        <ul class="pagination">
+          <li style="cursor: pointer" class="page-item" *ngFor="let index of pages">
+            <a class="page-link" (click)="changePage(index)">{{index}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-body pt-4" *ngIf="professors.length == 0">
+      <p>Aucun professeurs existants.</p>
+    </div>
+  </div>
 </div>

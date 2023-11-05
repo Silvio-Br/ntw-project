@@ -22,11 +22,11 @@
               <tbody>
                 <tr *ngFor="let absence of absences">
                   <td>{{ absence.etudiantId }}</td>
-                  <td [ngClass]="{
+                  <td style="color: white" [ngClass]="{
                     'bg-success': absence.etat === 'justified',
                     'bg-danger': absence.etat === 'unjustified',
                     'bg-warning': absence.etat === 'waiting'
-                  }">{{ absence.etat }}</td>
+                  }">{{ absence.etat | status }}</td>
                   <td>{{ absence.matiere }}</td>
                   <td>{{ absence.date | date }}</td>
                   <td>{{ formatAbsenceDate(absence.dateAbsence, 'date') }}- {{ formatAbsenceDate(absence.dateAbsence, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsence, 'minutes') }}</td>

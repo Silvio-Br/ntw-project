@@ -17,7 +17,7 @@
         <tr *ngFor="let absence of absences">
           <td>{{absence.matiere}}</td>
           <td>{{absence.enseignantId}}</td>
-          <td>{{absence.etat}}</td>
+          <td>{{absence.etat | status }}</td>
           <td>{{absence.dateAbsence | date: 'dd/MM/yyyy à hh:mm'}}</td>
         </tr>
         </tbody>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbsenceListService } from './absence-list.service';
+import { AbsenceListService } from '../../shared/services/absence-list.service';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({

@@ -5,8 +5,8 @@ import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-student-table',
-  templateUrl: './student-table.component.html',
-  styleUrls: ['./student-table.component.css']
+  templateUrl: './absences-table.component.html',
+  styleUrls: ['./absences-table.component.css']
 })
 export class StudentTableComponent implements OnInit {
 

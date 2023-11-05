@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import { ProfilComponent } from './shared/profil/profil.component';
-import { StudentTableComponent } from './shared/components/table-absences/student-table.component';
+import { StudentTableComponent } from './shared/components/table-absences/absences-table.component';
 import { MyAbsencesComponent } from './student/my-absences/my-absences.component';
 import {FormComponent} from "./shared/components/form-user/form.component";
 import { ListStudentsComponent } from './admin/list-students/list-students.component';
@@ -31,6 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ProfessorsComponent } from './student/professors/professors.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {JwtInterceptor} from "./shared/interceptors/jwt.interceptor";
+import {StatusPipe} from "./shared/pipe/status.pipe";
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {JwtInterceptor} from "./shared/interceptors/jwt.interceptor";
     ListProfessorsComponent,
     AddUserComponent,
     TableUsersComponent,
-    ProfessorsComponent
+    ProfessorsComponent,
+    StatusPipe
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,7 @@ import {JwtInterceptor} from "./shared/interceptors/jwt.interceptor";
     MatInputModule,
     MatFormFieldModule,
     MatRadioModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   providers: [
     JwtHelperService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
