@@ -1,6 +1,6 @@
-import { IsString, IsNotEmpty, IsDate } from 'class-validator';
-import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose, Type } from "@nestjs/class-transformer";
+import {IsString, IsNotEmpty, IsDate, IsIn} from 'class-validator';
+import {ApiProperty} from "@nestjs/swagger";
+import {Exclude, Expose, Type} from "@nestjs/class-transformer";
 
 export class AbsenceDto {
     @ApiProperty({
@@ -29,6 +29,7 @@ export class AbsenceDto {
     })
     @IsString()
     @IsNotEmpty()
+    @IsIn(['justified', 'unjustified', 'waiting'])
     @Expose()
     @Type(() => String)
     etat: string;
@@ -48,11 +49,11 @@ export class AbsenceDto {
         example: '2023-10-23T10:00:00Z',
     })
     @IsString()
-  @IsNotEmpty()
-  @Expose()
+    @IsNotEmpty()
+    @Expose()
     dateAbsence: string;
     @IsString()
-  @IsNotEmpty()
-  @Expose()
+    @IsNotEmpty()
+    @Expose()
     dateAbsenceto: string;
 }

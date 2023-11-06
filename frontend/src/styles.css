@@ -9,3 +9,7 @@
   flex-direction: row;
   align-items: center;
 }
+
+body {
+  overflow-x: hidden;
+}

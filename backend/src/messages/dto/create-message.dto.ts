@@ -1,4 +1,4 @@
-import { IsString, IsDate, IsOptional, IsBoolean } from 'class-validator';
+import {IsString, IsDate, IsOptional, IsBoolean, IsNotEmpty, MinLength} from 'class-validator';
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Type } from "@nestjs/class-transformer";
 
@@ -8,36 +8,29 @@ export class CreateMessageDto {
         example: '5763cd4dc378a38ecd387737',
     })
     @IsString()
-    @IsOptional()
+    @IsNotEmpty()
     @Expose()
     @Type(() => String)
-    from?: string;
+    from: string;
 
     @ApiProperty({
         description: 'Recipient ID',
         example: '5763cd4dc378a38ecd387738',
     })
     @IsString()
-    @IsOptional()
+    @IsNotEmpty()
     @Expose()
     @Type(() => String)
-    to?: string;
+    to: string;
 
     @ApiProperty({
         description: 'Message content',
         example: 'Hello, how are you?',
     })
     @IsString()
-    @IsOptional()
+    @IsNotEmpty()
+    @MinLength(5)
     @Expose()
     @Type(() => String)
-    message?: string;
-
-    @IsBoolean()
-    @IsOptional()
-    @Expose()
-    @Type(() => Boolean)
-    seen?: boolean;
-
-  
+    message: string;
 }

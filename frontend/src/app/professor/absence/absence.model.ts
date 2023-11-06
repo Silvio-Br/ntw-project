@@ -6,6 +6,4 @@ export class Absence {
     dateAbsence: Date | undefined;
     matiere: string | undefined;
     dateAbsenceto: string | undefined; // Add dateAbsence property
-
-
-  }    
+  }

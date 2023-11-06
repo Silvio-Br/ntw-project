@@ -1,9 +1,9 @@
 export type Absence = {
-  id?: string;
-  enseignantId: string;
-  etudiantId: string;
-  etat: string;
-  date: Date;
-  dateAbsence: Date;
-  matiere: string;
+    _id: string;
+    enseignantId: String;
+    etudiantId: string;
+    etat: string;
+    dateAbsence: Date;
+    matiere: string;
+    dateAbsenceto: string; // Add dat
 };

@@ -5,12 +5,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AbsenceComponent } from './professor/absence/absence.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AbsenceListComponent } from './professor/absence-list/absence-list.component';
-import { MessageListComponent } from './shared/message/message-list/message-list.component';
-import { MessageCardComponent } from './shared/message/message-card/message-card.component';
-import { SendMessageComponent } from './shared/message/send-message/send-message.component';
+import { MessageListComponent } from './shared/components/message/message-list/message-list.component';
+import { MessageCardComponent } from './shared/components/message/message-card/message-card.component';
+import { SendMessageComponent } from './shared/components/message/send-message/send-message.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './shared/login/login.component';
+import {LoginComponent} from './shared/components/login/login.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
-import { ProfilComponent } from './shared/profil/profil.component';
+import { ProfilComponent } from './shared/components/profil/profil.component';
 import { StudentTableComponent } from './shared/components/table-absences/absences-table.component';
 import { MyAbsencesComponent } from './student/my-absences/my-absences.component';
 import {FormComponent} from "./shared/components/form-user/form.component";
@@ -32,6 +32,7 @@ import { ProfessorsComponent } from './student/professors/professors.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {JwtInterceptor} from "./shared/interceptors/jwt.interceptor";
 import {StatusPipe} from "./shared/pipe/status.pipe";
+import { NavComponent } from './nav/nav.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {StatusPipe} from "./shared/pipe/status.pipe";
     AddUserComponent,
     TableUsersComponent,
     ProfessorsComponent,
-    StatusPipe
+    StatusPipe,
+    NavComponent
   ],
   imports: [
     BrowserModule,

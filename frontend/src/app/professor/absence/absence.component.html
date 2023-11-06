@@ -1,56 +1,57 @@
-<div class="card shadow mb-4">
+<app-nav>
+  <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Créer une nouvelle absence</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Créer une nouvelle absence</h6>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <form (ngSubmit)="onSubmit()">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="enseignantId">Teacher ID:</label>
-                    <input type="text" class="form-control" id="enseignantId" name="enseignantId" [(ngModel)]="absence.enseignantId" required>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="etudiantId">Student ID:</label>
-                    <input type="text" class="form-control" id="etudiantId" name="etudiantId" [(ngModel)]="absence.etudiantId" required readonly>
-                </div>
-                </div>
-                <div class="form-group">
-                    <label for="etat">Status:</label>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="etat" id="justified" [(ngModel)]="absence.etat" value="justified" required>
-                      <label class="form-check-label" for="justified">Justified</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="etat" id="unjustified" [(ngModel)]="absence.etat" value="unjustified" required>
-                      <label class="form-check-label" for="unjustified">Unjustified</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="etat" id="waiting" [(ngModel)]="absence.etat" value="waiting" required>
-                      <label class="form-check-label" for="waiting">Waiting</label>
-                    </div>
-                  </div>
-                <div class="form-group">
-                    <label for="matiere">Subject:</label>
-                    <input type="text" class="form-control" id="matiere" name="matiere" [(ngModel)]="absence.matiere" required><br>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="dateAbsenceFrom">Absence Date From:</label>
-                      <input type="datetime-local" class="form-control" id="datetimeAbsenceFrom" name="datetimeAbsenceFrom" [(ngModel)]="absence.dateAbsence" required>
-                    </div>
+      <div class="table-responsive" style="overflow-x: hidden">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label><b>Statut:</b></label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="etat" id="justified" formControlName="etat"
+                     value="justified" required checked>
+              <label class="form-check-label" for="justified">Justifiée</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="etat" id="unjustified" formControlName="etat"
+                     value="unjustified" required>
+              <label class="form-check-label" for="unjustified">Injustifée</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="etat" id="waiting" formControlName="etat"
+                     value="waiting" required>
+              <label class="form-check-label" for="waiting">En attente</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="matiere"><b>Sujet:</b></label>
+            <input type="text" class="form-control" id="matiere" name="matiere" formControlName="matiere"
+                   required><br>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="datetimeAbsenceFrom"><b>Du:</b></label>
+              <input type="datetime-local" class="form-control" id="datetimeAbsenceFrom" name="datetimeAbsenceFrom"
+                     formControlName="dateAbsence" required>
+            </div>
 
-                    <div class="form-group col-md-6">
-                      <label for="dateAbsenceTo">Absence Date To:</label>
-                      <input type="datetime-local" class="form-control" id="datetimeAbsenceTo" name="datetimeAbsenceTo" [(ngModel)]="absence.dateAbsenceto" required>
-                    </div>
-                  </div>
-                <button type="submit" class="btn btn-primary">register absence</button>
-                <div *ngIf="showAlert" class="alert alert-danger">
-                    Absence Date From must be earlier than Absence Date To.
-                  </div>
-              </form>
+            <div class="form-group col-md-6">
+              <label for="datetimeAbsenceTo"><b>Au:</b></label>
+              <input type="datetime-local" class="form-control" id="datetimeAbsenceTo" name="datetimeAbsenceTo"
+                     formControlName="dateAbsenceto" required>
+            </div>
+          </div>
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Enregistrer l'absence</button>
+        </form>
+        <div *ngIf="showAlert" class="alert alert-danger">
+          Absence Date From must be earlier than Absence Date To.
         </div>
+        <div *ngIf="success" class="alert alert-success mt-3">
+          L'absence a été enregistrée avec succès !
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</app-nav>
 

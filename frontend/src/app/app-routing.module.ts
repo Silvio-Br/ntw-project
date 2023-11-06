@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { StudentsComponent } from './professor/students/students.component';
 import { AbsenceComponent } from './professor/absence/absence.component';
 import { AbsenceListComponent } from './professor/absence-list/absence-list.component';
-import { SendMessageComponent } from './shared/message/send-message/send-message.component';
-import {LoginComponent} from "./shared/login/login.component";
-import {ProfilComponent} from "./shared/profil/profil.component";
+import { SendMessageComponent } from './shared/components/message/send-message/send-message.component';
+import {LoginComponent} from "./shared/components/login/login.component";
+import {ProfilComponent} from "./shared/components/profil/profil.component";
 import {MyAbsencesComponent} from "./student/my-absences/my-absences.component";
 import {AddUserComponent} from "./admin/add-user/add-user.component";
 import {ListProfessorsComponent} from "./admin/list-professors/list-professors.component";
@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'admin/professors', component: ListProfessorsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/students', component: ListStudentsComponent, canActivate: [AuthGuard, AdminGuard]},
 
-  // Default route
+  // Default route redirect by reloading the page
   { path: '**', redirectTo: 'login' }
 ];
 

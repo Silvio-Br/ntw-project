@@ -1,0 +1,22 @@
+<app-nav>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Envoyer un message</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="messageContent">Message:</label>
+                        <textarea class="form-control" id="messageContent" name="message" formControlName="message"
+                                  required></textarea>
+                    </div>
+                    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Envoyer</button>
+                </form>
+                <div *ngIf="success" class="alert alert-success mt-3">
+                    Le message a été envoyé avec succès !
+                </div>
+            </div>
+        </div>
+    </div>
+</app-nav>

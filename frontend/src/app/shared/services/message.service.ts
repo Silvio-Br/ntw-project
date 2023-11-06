@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Message } from '../message/message-list/message';
+import { Message } from '../../shared/types/message.type';
 import { AuthService } from './auth.service';
 import {environment} from "../../../environments/environment";
 
