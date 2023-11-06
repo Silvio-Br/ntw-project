@@ -5,6 +5,7 @@ import {InjectModel} from "@nestjs/mongoose";
 import {from, map, mergeMap, Observable} from "rxjs";
 import {CreateUserDto} from "../dto/create-user.dto";
 import {UpdateUserDto} from "../dto/update-user.dto";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersDao {
@@ -41,14 +42,20 @@ export class UsersDao {
             })
         );
 
-    findByEmailAndPassword = (email: string, password: string): Promise<User | undefined> =>
-        this._userModel.findOne({email: email, password: password}).exec().then((user) => {
-                if (!user) {
-                    return undefined;
-                }
-                return user.toJSON();
-            }
-        );
+    async findByEmailAndPassword(email: string, password: string): Promise<User | undefined> {
+        const user = await this._userModel.findOne({ email: email }).exec();
+        if (!user) {
+            return undefined; // L'utilisateur n'existe pas
+        }
+
+        // Utilisez bcrypt pour vérifier le mot de passe
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return undefined; // Le mot de passe est incorrect
+        }
+
+        return user.toJSON();
+    }
 
 
     save = (user: CreateUserDto): Observable<User> =>

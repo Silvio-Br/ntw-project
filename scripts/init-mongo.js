@@ -12,7 +12,7 @@ if (!existingAdmin) {
         phone: "+33612345678",
         email: "admin@admin.com",
         role: "admin",
-        password: "password",
+        password: "$2b$10$imnwXBjXRwbSwr9chXTPAu/NHi4Q4OPDtCuOUyYvaEvD9.ZRac5p.",
     });
 }
 
@@ -30,7 +30,7 @@ if (existingProfessors === 0) {
             phone: "+33612345678",
             email: "professor" + i + "@professor.com",
             role: "professor",
-            password: "password",
+            password: "$2b$10$imnwXBjXRwbSwr9chXTPAu/NHi4Q4OPDtCuOUyYvaEvD9.ZRac5p.",
         });
     }
 }
@@ -49,7 +49,7 @@ if (existingStudents === 0) {
             phone: "+33612345678",
             email: "student" + i + "@student.com",
             role: "student",
-            password: "password",
+            password: "$2b$10$imnwXBjXRwbSwr9chXTPAu/NHi4Q4OPDtCuOUyYvaEvD9.ZRac5p.",
         });
     }
 }

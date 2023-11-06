@@ -7,4 +7,4 @@ swagger:
   version: 1.0
   path: documentation
 mongodb:
-  uri: mongodb://localhost:27017/nwt
+  uri: mongodb://mongodb:27017/nwt

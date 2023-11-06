@@ -1,21 +1,83 @@
 <app-nav>
-<div>
-  <h1>Créer un utilisateur</h1>
+    <div>
+        <h1>Créer un utilisateur</h1>
 
-  <div class="pt-5">
-    <mat-radio-group [(ngModel)]="userType">
-      <mat-radio-button value="professor">Professeur</mat-radio-button>
-      <mat-radio-button value="student">Étudiant</mat-radio-button>
-    </mat-radio-group>
-  </div>
+        <div class="pt-5">
+            <mat-radio-group [(ngModel)]="userType">
+                <mat-radio-button value="professor">Professeur</mat-radio-button>
+                <mat-radio-button value="student">Étudiant</mat-radio-button>
+            </mat-radio-group>
+        </div>
 
-  <div class="pt-5">
-    <app-form-user (submit)="submit($event)"></app-form-user>
-  </div>
-  <div *ngIf="alreadyExist">
-    <mat-error>
-      Un utilisateur avec cet email existe déjà.
-    </mat-error>
-  </div>
-</div>
+        <div class="pt-5">
+            <div>
+                <form novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="flex-row">
+                        <div>
+                            <label for="nom">Nom<span class="text-red">*</span></label>
+                            <input formControlName="firstname" class="form-control form-control-user"
+                                   id="nom" aria-describedby="emailHelp">
+                        </div>
+                        <div class="pl-5">
+                            <label for="prenom">Prénom<span class="text-red">*</span></label>
+                            <input formControlName="lastname" class="form-control form-control-user"
+                                   id="prenom" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <label for="email">Email<span class="text-red">*</span></label>
+                        <input formControlName="email" type="email" class="form-control form-control-user"
+                               id="email" aria-describedby="emailHelp">
+                        <mat-error class="text-red pl-1"
+                                   *ngIf="form.get('email')?.dirty && form.get('email')?.hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-error class="text-red pl-1"
+                                   *ngIf="form.get('email')?.dirty && form.get('email')?.hasError('email')">
+                            Email is <strong>invalid</strong>
+                        </mat-error>
+                    </div>
+
+                    <div class="pt-2">
+                        <label for="email">Téléphone<span class="text-red">*</span></label>
+                        <input formControlName="phone" type="phone" class="form-control form-control-user"
+                               id="phone" aria-describedby="emailHelp">
+                        <mat-error class="text-red pl-1"
+                                   *ngIf="form.get('phone')?.dirty && form.get('phone')?.hasError('required')">
+                            Téléphone is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="form.get('phone')?.dirty && form.get('phone')?.hasError('pattern')">
+                            Phone number must be <strong>a french number</strong>
+                        </mat-error>
+                    </div>
+
+                    <div class="pt-2">
+                        <label for="email">Mot de passe<span class="text-red">*</span></label>
+                        <input formControlName="password" type="password" class="form-control form-control-user"
+                               id="password" aria-describedby="emailHelp">
+                        <mat-error class="text-red pl-1"
+                                   *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('required')">
+                            Le mot de passe est <strong>required</strong>
+                        </mat-error>
+                        <mat-error class="text-red pl-1"
+                                   *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('minLength')">
+                            Le mot de passe doit faire au moins <strong>4 caractères </strong>
+                        </mat-error>
+                    </div>
+
+                    <div class="pt-5 w-100">
+                        <button type="submit" [disabled]="form.invalid" style="right: 0"
+                                class="btn mr-4 btn-primary position-absolute">Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="alreadyExist">
+            <mat-error>
+                Un utilisateur avec cet email existe déjà.
+            </mat-error>
+        </div>
+    </div>
 </app-nav>

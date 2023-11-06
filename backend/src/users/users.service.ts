@@ -6,6 +6,7 @@ import {UpdateUserDto} from "./dto/update-user.dto";
 import {User} from "./schema/user.schema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -107,13 +108,21 @@ export class UsersService {
             )
         );
 
+    // with bcrypt password
     private _addUser = (
         user: CreateUserDto, role: string,
     ): Observable<CreateUserDto> =>
-        of({
-            ...user,
-            role: role
-        });
+        of(user).pipe(
+            mergeMap((user) => this._hashPassword(user)),
+            mergeMap((user) => this._setRole(user, role)),
+        );
 
 
+    private _setRole(user: CreateUserDto, role: string) {
+        return of({...user, role});
+    }
+
+    private _hashPassword(user: CreateUserDto) {
+        return of({...user, password: bcrypt.hashSync(user.password, 10)});
+    }
 }
