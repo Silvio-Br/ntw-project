@@ -8,8 +8,6 @@ import * as Config from 'config';
 import {AppConfig, SwaggerConfig} from './app.types';
 import {Logger, ValidationPipe} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
-import {ProfessorsModule} from "./professor/professors.module";
-import {StudentsModule} from "./student/students.module";
 import * as passport from "passport";
 import * as session from "express-session";
 import {AuthModule} from "./auth/auth.module";
@@ -21,6 +19,7 @@ import {ProfessorStrategy} from "./auth/strategy/professor.strategy";
 import {StudentStrategy} from "./auth/strategy/student.strategy";
 import {LocalStrategy} from "./auth/strategy/local.strategy";
 import {JwtStrategy} from "./auth/strategy/jwt.strategy";
+import {UsersModule} from "./users/users.module";
 
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
@@ -70,7 +69,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
     // create swagger document
     const userDocument = SwaggerModule.createDocument(app, options, {
-        include: [ProfessorsModule, StudentsModule, AbsenceModule, MessagesModule, AuthModule],
+        include: [AbsenceModule, MessagesModule, AuthModule, AbsenceModule, UsersModule],
     });
 
     // setup swagger module

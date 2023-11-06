@@ -18,16 +18,8 @@ export class ApiService {
     });
   }
 
-  getProfessors() {
-    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/professors`);
-  }
-
-  getStudents() {
-    return this.http.get(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/students`);
-  }
-
   update(id: string, form: any, role: string) {
-    return this.http.put(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s/${id}`, form);
+    return this.http.put(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/users/${role}s/${id}`, form);
   }
 
   getAbsences(id: string) {
@@ -35,10 +27,6 @@ export class ApiService {
   }
 
   create(form: User, role: string) {
-    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s`, form);
-  }
-
-  deleteUser(_id: String, role: string) {
-    return this.http.delete(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/${role}s/${_id}`);
+    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/users/${role}s`, form);
   }
 }

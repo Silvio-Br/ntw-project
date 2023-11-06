@@ -29,7 +29,7 @@
                     'bg-warning': absence.etat === 'waiting'
                   }">{{ absence.etat | status }}</td>
                   <td>{{ absence.matiere }}</td>
-                  <td>{{ absence.date | date }}</td>
+                  <td>{{ absence.dateAbsence | date }}</td>
                   <td>{{ formatAbsenceDate(absence.dateAbsence, 'date') }}- {{ formatAbsenceDate(absence.dateAbsence, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsence, 'minutes') }}</td>
                   <td>{{ formatAbsenceDate(absence.dateAbsenceto, 'date') }}- {{ formatAbsenceDate(absence.dateAbsenceto, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsenceto, 'minutes') }}</td>
                   <td>

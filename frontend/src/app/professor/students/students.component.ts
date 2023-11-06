@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../../shared/services/students.service';
-import { Student } from './student.model';
+import { StudentsService } from '../../shared/services/students.service';
+import { Student } from '../../shared/types/student.type';
 
 @Component({
   selector: 'app-students',
@@ -8,13 +8,17 @@ import { Student } from './student.model';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  students: any[] | undefined;
+  private _students: Student[] | undefined;
 
-  constructor(private studentService: StudentService) { }
+  constructor(private _studentsService: StudentsService) { }
+
+  get students(): Student[] | undefined {
+    return this._students;
+  }
 
   ngOnInit() {
-    this.studentService.getAllStudents().subscribe((data: Student[]) => {
-      this.students = data;
+    this._studentsService.findAll().subscribe((data: Student[]) => {
+      this._students = data;
     });
 
 

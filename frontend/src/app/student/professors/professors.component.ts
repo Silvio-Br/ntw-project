@@ -1,8 +1,9 @@
 // professors.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { ProfessorService } from './professors.service';
+
 import {User} from "../../shared/types/user.type";
+import {ProfessorsService} from "../../shared/services/professors.service";
 
 
 @Component({
@@ -16,10 +17,10 @@ export class ProfessorsComponent implements OnInit {
   private _currentPage: number = 1;
   private _currentProfessors: User[] = [];
 
-  constructor(private professorService: ProfessorService) {}
+  constructor(private _professorsService: ProfessorsService) {}
 
   ngOnInit(): void {
-    this.professorService.getAllProfessors().subscribe((data) => {
+    this._professorsService.findAll().subscribe((data) => {
       this._professors = data;
       this._currentProfessors = this._professors.slice(0, 10);
       this._nbPages = Math.ceil(this._professors.length / 10);

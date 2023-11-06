@@ -55,7 +55,7 @@ import { NavComponent } from './nav/nav.component';
     TableUsersComponent,
     ProfessorsComponent,
     StatusPipe,
-    NavComponent
+    NavComponent,
   ],
   imports: [
     BrowserModule,

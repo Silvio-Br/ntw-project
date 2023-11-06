@@ -1,10 +1,10 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Absence} from './../../shared/types/absence.type';
 import {AuthService} from '../../shared/services/auth.service';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "../../shared/validators/custom-validators";
+import {AbsencesService} from "../../shared/services/absences.service";
 
 @Component({
     selector: 'app-absence',
@@ -16,19 +16,18 @@ export class AbsenceComponent {
     private _success = false;
     private _form: FormGroup;
     private _model: Absence = {} as Absence;
+    private _showAlert = false;
 
-    showAlert = false;
-
-    constructor(private route: ActivatedRoute, private http: HttpClient, private _auth: AuthService) {
+    constructor(private _route: ActivatedRoute, private _authService: AuthService, private _absencesService: AbsencesService) {
         this._success = false;
-        this.route.paramMap.subscribe(params => {
+        this._route.paramMap.subscribe(params => {
             const studentIdString = params.get('studentId');
 
             // Check if studentIdString is not null
             if (studentIdString !== null) {
                 // Set the value of etudiantId in the absence object
                 this._model.etudiantId = studentIdString;
-                this._model.enseignantId = this._auth.id
+                this._model.enseignantId = this._authService.id
                 this._model.etat = 'justified';
             }
         });
@@ -65,32 +64,27 @@ export class AbsenceComponent {
         return this._success;
     }
 
+    get showAlert() {
+        return this._showAlert;
+    }
+
     get form(): FormGroup {
         return this._form;
     }
 
     onSubmit() {
-        this.showAlert = false;
+        this._showAlert = false;
         this._success = false;
         this._model = this.form.value;
         if (this._model.dateAbsence && this._model.dateAbsence) {
             const dateFrom = new Date(this._model.dateAbsence);
             const dateTo = new Date(this._model.dateAbsenceto);
             if (dateFrom >= dateTo) {
-                this.showAlert = true;
+                this._showAlert = true;
             }else {
-                this.http.post('http://localhost:3000/absences', this._model)
-                    .subscribe(
-                        (response) => {
-                            console.log('Absence created successfully:', response);
-                            this._success = true;
-                            // Handle success, e.g., navigate to a success page or reset the form
-                        },
-                        (error) => {
-                            console.error('Error creating absence:', error);
-                            // Handle errors, e.g., display an error message to the user
-                        }
-                    );
+                this._absencesService.create(this._model).subscribe((response) => {
+                    this._success = true;
+                });
             }
         }
     }

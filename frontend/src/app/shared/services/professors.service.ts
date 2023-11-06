@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Student } from '../../shared/types/student.type';
+import { Professor } from '../../shared/types/professor.type';
 import {environment} from "../../../environments/environment";
 import {User} from "../types/user.type";
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentsService {
+export class ProfessorsService {
   private apiUrl = `${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}`;
 
   constructor(private http: HttpClient) {}
 
-  findAll(): Observable<Student[]> {
-    return this.http.get<Student[]>(`${this.apiUrl}/users/students`);
+  findAll(): Observable<Professor[]> {
+    return this.http.get<Professor[]>(`${this.apiUrl}/users/professors`);
   }
 
   delete(_id: String) {
-    return this.http.delete(`${this.apiUrl}/users/students/${_id}`);
+    return this.http.delete(`${this.apiUrl}/users/professors/${_id}`);
   }
 
   create(form: User) {
-    return this.http.post(`${this.apiUrl}/users/students`, form);
+    return this.http.post(`${this.apiUrl}/users/professors`, form);
   }
 }

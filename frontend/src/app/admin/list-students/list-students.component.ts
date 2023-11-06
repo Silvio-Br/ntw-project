@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../shared/types/user.type";
-import {ApiService} from "../../shared/services/api.service";
+import {StudentsService} from "../../shared/services/students.service";
 
 @Component({
   selector: 'app-list-students',
@@ -11,7 +11,7 @@ export class ListStudentsComponent implements OnInit {
 
   private _students: User[] = [];
 
-  constructor(private readonly _apiService: ApiService) {
+  constructor(private readonly _studentsService: StudentsService) {
   }
 
   get students(): User[] {
@@ -19,13 +19,13 @@ export class ListStudentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._apiService.getStudents().subscribe((response: any) => {
+    this._studentsService.findAll().subscribe((response: any) => {
       this._students = response;
     });
   }
 
   onDelete(_id: String) {
-    this._apiService.deleteUser(_id, 'student').subscribe((response: any) => {
+    this._studentsService.delete(_id).subscribe((response: any) => {
       this._students = this._students.filter((student: User) => student._id !== _id);
     });
   }
