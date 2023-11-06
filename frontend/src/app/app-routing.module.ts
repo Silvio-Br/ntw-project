@@ -36,6 +36,9 @@ const routes: Routes = [
   { path: 'admin/add-user', component: AddUserComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/professors', component: ListProfessorsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/students', component: ListStudentsComponent, canActivate: [AuthGuard, AdminGuard]},
+
+  // Default route
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

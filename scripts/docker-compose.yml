@@ -1,0 +1,40 @@
+version: '3'
+services:
+  nestjs-app:
+    build:
+      context: ../backend
+      dockerfile: ../backend/scripts/Dockerfile
+    container_name: nestjs_container
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  angular-app:
+    build:
+      context: ../frontend
+      dockerfile: ../frontend/scripts/Dockerfile
+    container_name: angular_container
+    ports:
+      - 4200:4200
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
+
+networks:
+  app-network:

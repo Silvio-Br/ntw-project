@@ -1,5 +1,5 @@
 server:
-  host: localhost
+  host: 0.0.0.0
   port: 3000
 swagger:
   title: Documentation NWT Project
@@ -7,4 +7,4 @@ swagger:
   version: 1.0
   path: documentation
 mongodb:
-  uri: mongodb://localhost:27017/nwt
+  uri: mongodb://mongodb:27017/nwt
