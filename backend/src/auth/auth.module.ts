@@ -1,6 +1,5 @@
 import {forwardRef, Logger, Module} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
 import {UsersModule} from "../users/users.module";
 import {PassportModule} from "@nestjs/passport";
 import {JwtModule} from "@nestjs/jwt";
@@ -20,7 +19,6 @@ import {StudentStrategy} from "./strategy/student.strategy";
       })
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, AdminStrategy, ProfessorStrategy, StudentStrategy],
-  controllers: [AuthController],
   exports: [AuthService],
 })
 export class AuthModule {}

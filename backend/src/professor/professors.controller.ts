@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import {UsersService} from "../users/users.service";
 import {
-    ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse,
+    ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiConflictResponse, ApiCreatedResponse,
     ApiNoContentResponse,
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -40,6 +40,7 @@ export class ProfessorsController {
     })
     @ApiNoContentResponse({ description: 'No professor exists in database' })
     @Get()
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('professor');
@@ -58,6 +59,7 @@ export class ProfessorsController {
         allowEmptyValue: false,
     })
     @Get(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findOne(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('professor', params.id);
@@ -76,6 +78,7 @@ export class ProfessorsController {
         type: CreateUserDto,
     })
     @Post()
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('admin'))
     create(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'professor');
@@ -98,6 +101,7 @@ export class ProfessorsController {
         type: String,
     })
     @Put(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
         jwt: string;
@@ -144,6 +148,7 @@ export class ProfessorsController {
         allowEmptyValue: false,
     })
     @Delete(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('admin'))
     delete(@Param() { id }: HandlerParams): Observable<User | void> {
         return this._usersService.delete(id);

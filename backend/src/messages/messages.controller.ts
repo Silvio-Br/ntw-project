@@ -3,7 +3,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { MessagesService } from './messages.service';
 import { Message } from './schema/message.schema';
 import {
-    ApiBadRequestResponse,
+    ApiBadRequestResponse, ApiBearerAuth,
     ApiBody,
     ApiCreatedResponse,
     ApiNoContentResponse,
@@ -24,6 +24,7 @@ export class MessagesController {
     @ApiCreatedResponse({ description: 'The record has been successfully created.'})
     @ApiBadRequestResponse({ description: 'Validation failed.'})
     @ApiBody({ type: CreateMessageDto })
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     create(@Body() createMessageDto: CreateMessageDto) {
         return this.messagesService.create(createMessageDto);
@@ -37,6 +38,7 @@ export class MessagesController {
     })
     @ApiBadRequestResponse({description: 'Validation failed'})
     @ApiNoContentResponse({description: 'No message exists in database'})
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findAll() {
         return this.messagesService.findAll();
@@ -49,6 +51,7 @@ export class MessagesController {
     })
     @ApiBadRequestResponse({description: 'Validation failed'})
     @ApiNoContentResponse({description: 'No message exists in database for this recipient'})
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     async findByTo(@Param('to') to: string): Promise<Message[]> {
         return this.messagesService.findByTo(to);
@@ -68,6 +71,7 @@ export class MessagesController {
         type: String,
         allowEmptyValue: false,
     })
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     async findByFrom(@Param('from') from: string): Promise<Message[]> {
         return this.messagesService.findByFrom(from);
@@ -86,6 +90,7 @@ export class MessagesController {
         allowEmptyValue: false,
     })
     @ApiNoContentResponse({description: 'Message with the given "id" not found'})
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     async delete(@Param('id') id: string): Promise<Message | void> {
         return this.messagesService.delete(id);
@@ -104,6 +109,7 @@ export class MessagesController {
         allowEmptyValue: false,
     })
     @Put(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     async update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto): Promise<Message> {
         return this.messagesService.update(id, updateMessageDto);

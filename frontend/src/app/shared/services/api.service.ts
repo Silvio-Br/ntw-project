@@ -12,7 +12,7 @@ export class ApiService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   login(email: string, password: string) {
-    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/auth/login`, {
+    return this.http.post(`${environment.backend.protocol}://${environment.backend.host}:${environment.backend.port}/users/login`, {
       email,
       password,
     });

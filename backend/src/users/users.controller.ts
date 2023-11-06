@@ -4,17 +4,17 @@ import {
     Controller, Delete,
     Get, Logger, NotFoundException,
     Param,
-    Post, Put,
+    Post, Put, Request,
     UseGuards,
     UseInterceptors
 } from '@nestjs/common';
 import {UsersService} from "./users.service";
 import {
-    ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse,
+    ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiConflictResponse, ApiCreatedResponse,
     ApiNoContentResponse,
     ApiNotFoundResponse,
     ApiOkResponse,
-    ApiParam, ApiTags
+    ApiParam, ApiTags, ApiUnauthorizedResponse
 } from "@nestjs/swagger";
 import {User} from "./schema/user.schema";
 import {AuthGuard} from "@nestjs/passport";
@@ -23,6 +23,7 @@ import {HandlerParams} from "./validator/handler-param";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
 import {AuthService} from "../auth/auth.service";
+import {LoginAuthDto} from "../auth/dto/login-auth.dto";
 
 @UseInterceptors(ClassSerializerInterceptor)
 @ApiTags('users')
@@ -33,12 +34,30 @@ export class UsersController {
     }
 
     @ApiOkResponse({
+        description: 'Login successful, returns token',
+        type: String,
+    })
+    @ApiBadRequestResponse({description: 'Validation failed'})
+    @ApiUnauthorizedResponse({description: 'Invalid credentials'})
+    @ApiBody({
+        description: 'Login credentials',
+        type: LoginAuthDto,
+    })
+    @UseGuards(AuthGuard('local'))
+    @Post('login')
+    async login(@Request() req) {
+        const {email, password} = req.body;
+        return this._authService.loginWithCredentials(email, password);
+    }
+
+    @ApiOkResponse({
         description: 'Returns an array of students',
         type: User,
         isArray: true,
     })
     @ApiNoContentResponse({description: 'No student exists in database'})
     @Get('/students')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findAllStudents(): Observable<User[] | void> {
         return this._usersService.findAllByRole('student');
@@ -57,6 +76,7 @@ export class UsersController {
         allowEmptyValue: false,
     })
     @Get('/students/:id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findOneStudent(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('student', params.id);
@@ -75,6 +95,7 @@ export class UsersController {
         type: CreateUserDto,
     })
     @Post('/students')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('admin'))
     createStudent(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'student');
@@ -98,6 +119,7 @@ export class UsersController {
     })
     @ApiBody({description: 'Payload to update a student', type: UpdateUserDto})
     @Put('/students/:id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('student'))
     updateStudent(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
         jwt: string;
@@ -144,6 +166,7 @@ export class UsersController {
         allowEmptyValue: false,
     })
     @Delete('/students/:id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('admin'))
     deleteStudent(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.delete(params.id);
@@ -156,6 +179,7 @@ export class UsersController {
     })
     @ApiNoContentResponse({ description: 'No professor exists in database' })
     @Get('/professors')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findAll(): Observable<User[] | void> {
         return this._usersService.findAllByRole('professor');
@@ -174,6 +198,7 @@ export class UsersController {
         allowEmptyValue: false,
     })
     @Get('/professors/:id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     findOneProfessor(@Param() params: HandlerParams): Observable<User | void> {
         return this._usersService.findOneByRoleAndId('professor', params.id);
@@ -192,6 +217,7 @@ export class UsersController {
         type: CreateUserDto,
     })
     @Post('/professors')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('admin'))
     createProfessor(@Body() createPersonDto: CreateUserDto): Observable<User> {
         return this._usersService.create(createPersonDto, 'professor');
@@ -214,6 +240,7 @@ export class UsersController {
         type: String,
     })
     @Put('/professors/:id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     updateProfessor(@Param() params: HandlerParams, @Body() updatePersonDto: UpdateUserDto): Observable<{
         jwt: string;
@@ -260,6 +287,7 @@ export class UsersController {
         allowEmptyValue: false,
     })
     @Delete('/professors/:id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('admin'))
     deleteProfessor(@Param() { id }: HandlerParams): Observable<User | void> {
         return this._usersService.delete(id);
