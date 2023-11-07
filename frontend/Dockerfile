@@ -1,5 +1,4 @@
-# Utilisez l'image Node.js LTS (14.x) comme base
-FROM node:18
+FROM node:18-alpine AS build
 
 # Définissez le répertoire de travail dans le conteneur
 WORKDIR /app
@@ -11,14 +10,11 @@ COPY package.json yarn.lock ./
 RUN yarn install
 
 # Copiez le reste des fichiers de l'application dans le conteneur
-COPY . .
+COPY .. .
 
 # Construisez l'application Angular en utilisant la commande de construction (par exemple, ng build)
 RUN yarn build
 
-# Exposez le port sur lequel l'application Angular sera accessible
-EXPOSE 4200
-
-# Commande pour démarrer l'application Angular (utilisez le serveur de développement pour le développement)
-# host 0.0.0.0
-CMD ["yarn", "start", "--host", "0.0.0.0"]
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
