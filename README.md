@@ -26,13 +26,13 @@ Pour lancer le projet NTW, suivez ces étapes :
 1. Clonez le dépôt Git du projet sur votre machine locale.
 
    ```bash
-   git clone https://github.com/votre-utilisateur/projet-ntw.git
+   git clone https://github.com/Silvio-Br/ntw-project.git
    ```
 
 2. Accédez au répertoire du projet.
 
    ```bash
-   cd projet-ntw
+   cd ntw-projet/scripts
    ```
 
 3. Exécutez le docker-compose pour lancer l'application. La base de données sera initialisée avec un jeu de données de test.
