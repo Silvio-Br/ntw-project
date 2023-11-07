@@ -57,4 +57,4 @@ Tous les comptes créés à l'initialisation de la base de données ont le mot d
 Ce projet a été développé par :
 
 - Silvio BRANCATI
-- Iliass Halimi
+- Iliass HALIMI
