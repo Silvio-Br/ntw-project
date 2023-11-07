@@ -35,5 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 /scripts/data
-yarn.lock
 package-lock.json
