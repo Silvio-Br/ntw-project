@@ -6,7 +6,7 @@ import {Expose, Type} from "@nestjs/class-transformer";
 export class UpdateAbsenceEtatDto {
   @ApiProperty({
     description: 'État de l\'absence',
-    example: 'Justifiée',
+    example: 'Justified',
   })
   @IsString()
   @IsNotEmpty()

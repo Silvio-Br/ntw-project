@@ -25,7 +25,7 @@ export class AbsenceDto {
 
     @ApiProperty({
         description: 'État de l\'absence',
-        example: 'Justifiée',
+        example: 'Justified',
     })
     @IsString()
     @IsNotEmpty()

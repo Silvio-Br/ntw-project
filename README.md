@@ -35,7 +35,7 @@ Pour lancer le projet NTW, suivez ces étapes :
    cd projet-ntw
    ```
 
-3. Exécutez le docker-compose pour lancer l'application. La base de données sera initialisée avec 20 professeurs et 20 étudiants.
+3. Exécutez le docker-compose pour lancer l'application. La base de données sera initialisée avec un jeu de données de test.
 
    ```bash
    docker-compose up --build
