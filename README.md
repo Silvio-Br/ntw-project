@@ -32,7 +32,7 @@ Pour lancer le projet NTW, suivez ces étapes :
 2. Accédez au répertoire du projet.
 
    ```bash
-   cd ntw-projet
+   cd ntw-project
    ```
 
 3. Exécutez le docker-compose pour lancer l'application. La base de données sera initialisée avec un jeu de données de test.
