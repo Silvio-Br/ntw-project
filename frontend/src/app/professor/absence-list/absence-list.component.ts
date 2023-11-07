@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
 import {AbsencesService} from "../../shared/services/absences.service";
 import {StudentsService} from "../../shared/services/students.service";
@@ -8,51 +8,48 @@ import {StudentsService} from "../../shared/services/students.service";
     templateUrl: './absence-list.component.html',
     styleUrls: ['./absence-list.component.css']
 })
-export class AbsenceListComponent {
+export class AbsenceListComponent implements OnInit {
     private _absences: any[]; // Define your absence model here
-    searchDate: string = '';
+    private _absencesFiltered: any[];
+    searchName: string = '';
 
     constructor(private _absencesService: AbsencesService, private _authService: AuthService, private _studentsService: StudentsService) {
         this._absences = [];
+        this._absencesFiltered = [];
     }
 
     ngOnInit(): void {
-        this.loadAbsences();
-    }
-
-    loadAbsences() {
-        this._absencesService.findAllByIdProfessor(this._authService.id).subscribe((data: any) => {
-            this._absences = data;
-            for (let absence of this._absences) {
-                this._studentsService.findById(absence.etudiantId).subscribe((data: any) => {
-                    absence.student = data.firstname + " " + data.lastname;
-                });
-            }
-        });
+      this._absencesService.findAllByIdProfessor(this._authService.id).subscribe((data: any) => {
+        this._absences = data;
+        this._absencesFiltered = data;
+        for (let absence of this._absences) {
+          this._studentsService.findById(absence.etudiantId).subscribe((data: any) => {
+            absence.student = data.firstname + " " + data.lastname;
+          });
+        }
+      });
     }
 
     get absences(): any[] {
-        return this._absences;
+        return this._absencesFiltered;
     }
 
     filterAbsences() {
-        if (this.searchDate.trim() === '') {
-            // If the search input is empty, show all absences
-            this.loadAbsences();
+        if (this.searchName.trim() === '') {
+            this._absencesFiltered = this._absences;
         } else {
             // Filter absences based on the searchDate
             if (this._absences != undefined)
-                this._absences = this._absences.filter((absence) => {
-                    const formattedDate = new Date(absence.date).toDateString(); // Format the date as needed
-                    return formattedDate.includes(this.searchDate);
+                this._absencesFiltered = this._absences.filter((absence) => {
+                    return absence.student.includes(this.searchName);
                 });
         }
     }
 
     deleteAbsence(id: string) {
         this._absencesService.delete(id).subscribe(() => {
-            // Assuming you want to refresh the list after deletion
-            this.loadAbsences();
+            this._absences = this._absences.filter((absence) => absence._id !== id);
+            this._absencesFiltered = this._absencesFiltered.filter((absence) => absence._id !== id);
         });
     }
 
@@ -87,8 +84,8 @@ export class AbsenceListComponent {
 
     updateState(absence: any) {
         this._absencesService.update(absence._id, {etat: absence.etat}).subscribe(() => {
-            // Assuming you want to refresh the list after the update
-            this.loadAbsences();
+            this._absences.filter((absence) => absence._id === absence._id)[0].etat = absence.etat;
+            absence.showStateUpdate = false;
         });
     }
 

@@ -6,6 +6,8 @@ import {from, map, mergeMap, Observable} from "rxjs";
 import {CreateUserDto} from "../dto/create-user.dto";
 import {UpdateUserDto} from "../dto/update-user.dto";
 import * as bcrypt from 'bcrypt';
+import {Message} from "../../messages/schema/message.schema";
+import {Absence} from "../../absence/schema/absence.schema";
 
 @Injectable()
 export class UsersDao {
@@ -13,6 +15,10 @@ export class UsersDao {
     constructor(
         @InjectModel(User.name)
         private readonly _userModel: Model<User>,
+        @InjectModel(Absence.name)
+        private readonly _absenceModel: Model<Absence>,
+        @InjectModel(Message.name)
+        private readonly _messageModel: Model<Message>,
     ) {
     }
 
@@ -86,6 +92,14 @@ export class UsersDao {
                 if (!user) {
                     return null;
                 }
+                this._messageModel.deleteMany({from: user._id}).exec();
+                this._messageModel.deleteMany({to: user._id}).exec();
+                if (user.role === 'etudiant') {
+                    this._absenceModel.deleteMany({etudiantId: user._id}).exec();
+                } else {
+                    this._absenceModel.deleteMany({enseignantId: user._id}).exec();
+                }
+
                 return user.toJSON();
             })
         );

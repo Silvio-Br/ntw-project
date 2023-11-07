@@ -6,8 +6,8 @@
     <div class="card-body">
       <div class="table-responsive">
         <div>
-          <label for="searchDate">Rechercher par date : </label>
-          <input type="text" id="searchDate" [(ngModel)]="searchDate" (keyup)="filterAbsences()">
+          <label class="mr-3" for="searchDate">Rechercher par nom d'étudiant :</label>
+          <input type="text" id="searchDate" [(ngModel)]="searchName" (keyup)="filterAbsences()">
         </div>
 
         <table *ngIf="absences.length > 0" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

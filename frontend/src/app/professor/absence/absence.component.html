@@ -45,7 +45,7 @@
           <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Enregistrer l'absence</button>
         </form>
         <div *ngIf="showAlert" class="alert alert-danger">
-          Absence Date From must be earlier than Absence Date To.
+          Les dates saisies doivent être dans l'ordre chronologique !
         </div>
         <div *ngIf="success" class="alert alert-success mt-3">
           L'absence a été enregistrée avec succès !
