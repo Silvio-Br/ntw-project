@@ -24,4 +24,8 @@ export class ProfessorsService {
   create(form: User) {
     return this.http.post(`${this.apiUrl}/users/professors`, form);
   }
+
+  findById(professeurId: String) {
+    return this.http.get(`${this.apiUrl}/users/professors/${professeurId}`);
+  }
 }

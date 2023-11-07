@@ -10,17 +10,17 @@ import {AuthService} from "../../services/auth.service";
 })
 export class StudentTableComponent {
 
-    private _absences: Absence[] = [];
+    private _absences: any[] = [];
     private _nbPages: number = 1;
     private _pagesArray: number[] = [];
     private _currentPage: number = 1;
-    private _currentAbsences: Absence[] = [];
+    private _currentAbsences: any[] = [];
 
     constructor() {
     }
 
     @Input()
-    set absences(absences: Absence[]) {
+    set absences(absences: any[]) {
         this._absences = absences;
         this._currentAbsences = this._absences.slice(0, 10);
         this._nbPages = Math.ceil(this._absences.length / 10);
@@ -31,7 +31,7 @@ export class StudentTableComponent {
         return this._pagesArray;
     }
 
-    get absences(): Absence[] {
+    get absences(): any[] {
         return this._currentAbsences;
     }
 

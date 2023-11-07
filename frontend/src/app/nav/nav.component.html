@@ -133,9 +133,9 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-envelope fa-fw"></i>
                   <!-- Counter - Messages -->
-                  <span class="badge badge-danger badge-counter">7</span>
+                  <span *ngIf="numberOfMessages > 0" class="badge badge-danger badge-counter">{{numberOfMessages}}</span>
                 </a>
-                <app-message-list></app-message-list>
+                <app-message-list (delete)="updateMessages($event)" [messages]="messages"></app-message-list>
               </li>
 
               <div class="topbar-divider d-none d-sm-block"></div>

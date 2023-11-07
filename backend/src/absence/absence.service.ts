@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { AbsenceDao } from './dao/absence.dao';
 import { AbsenceDto } from './dto/absence.dto';
 import { Absence } from './schema/absence.schema';
-import { UpdateAbsenceEtatDto } from './dto/update-absence-etat.dto';
 
 @Injectable()
 export class AbsenceService {

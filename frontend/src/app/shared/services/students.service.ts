@@ -17,6 +17,10 @@ export class StudentsService {
     return this.http.get<Student[]>(`${this.apiUrl}/users/students`);
   }
 
+  findById(_id: String) {
+    return this.http.get(`${this.apiUrl}/users/students/${_id}`);
+  }
+
   delete(_id: String) {
     return this.http.delete(`${this.apiUrl}/users/students/${_id}`);
   }

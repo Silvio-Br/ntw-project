@@ -1,65 +1,74 @@
 <app-nav>
-<div class="card shadow mb-4">
+  <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Liste des absences</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Liste des absences</h6>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <input type="text" [(ngModel)]="searchDate" (keyup)="filterAbsences()">
+      <div class="table-responsive">
+        <div>
+          <label for="searchDate">Rechercher par date : </label>
+          <input type="text" id="searchDate" [(ngModel)]="searchDate" (keyup)="filterAbsences()">
+        </div>
 
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Etudiant ID</th>
-                  <th>État</th>
-                  <th>Matière</th>
-                  <th>Date</th>
-                  <th>Date début d'absence</th>
-                  <th>Date fin d'absence</th>
-                  <th>Supprimer</th>
-                  <th>Modifier l'état</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let absence of absences">
-                  <td>{{ absence.etudiantId }}</td>
-                  <td style="color: white" [ngClass]="{
+        <table *ngIf="absences.length > 0" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>Etudiant</th>
+            <th>État</th>
+            <th>Matière</th>
+            <th>Date</th>
+            <th>Date début d'absence</th>
+            <th>Date fin d'absence</th>
+            <th>Supprimer</th>
+            <th>Modifier l'état</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let absence of absences">
+            <td>{{ absence.student }}</td>
+            <td style="color: white" [ngClass]="{
                     'bg-success': absence.etat === 'justified',
                     'bg-danger': absence.etat === 'unjustified',
                     'bg-warning': absence.etat === 'waiting'
                   }">{{ absence.etat | status }}</td>
-                  <td>{{ absence.matiere }}</td>
-                  <td>{{ absence.dateAbsence | date }}</td>
-                  <td>{{ formatAbsenceDate(absence.dateAbsence, 'date') }}- {{ formatAbsenceDate(absence.dateAbsence, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsence, 'minutes') }}</td>
-                  <td>{{ formatAbsenceDate(absence.dateAbsenceto, 'date') }}- {{ formatAbsenceDate(absence.dateAbsenceto, 'hours') }}:{{ formatAbsenceDate(absence.dateAbsenceto, 'minutes') }}</td>
-                  <td>
-                    <button class="btn btn-danger" (click)="deleteAbsence(absence._id)">Supprimer</button>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary" (click)="toggleStateUpdate(absence)">Modifier</button>
-                    <div *ngIf="absence.showStateUpdate">
-                      <!-- Display state update options and save button -->
-                      <div class="form-check">
-                        <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'justified'">
-                        <label class="form-check-label">Justifiée</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'unjustified'">
-                        <label class="form-check-label">Injustifiée</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'waiting'">
-                        <label class="form-check-label">En attente</label>
-                      </div>
-                      <button class="btn btn-primary" (click)="updateState(absence)">Sauvegarder</button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-
+            <td>{{ absence.matiere }}</td>
+            <td>{{ absence.dateAbsence | date }}</td>
+            <td>{{ formatAbsenceDate(absence.dateAbsence, 'date') }}
+              - {{ formatAbsenceDate(absence.dateAbsence, 'hours') }}
+              :{{ formatAbsenceDate(absence.dateAbsence, 'minutes') }}</td>
+            <td>{{ formatAbsenceDate(absence.dateAbsenceto, 'date') }}
+              - {{ formatAbsenceDate(absence.dateAbsenceto, 'hours') }}
+              :{{ formatAbsenceDate(absence.dateAbsenceto, 'minutes') }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteAbsence(absence._id)">Supprimer</button>
+            </td>
+            <td>
+              <button class="btn btn-primary" (click)="toggleStateUpdate(absence)">Modifier</button>
+              <div *ngIf="absence.showStateUpdate">
+                <!-- Display state update options and save button -->
+                <div class="form-check">
+                  <input id="justifiee" type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'justified'">
+                  <label for="justifiee" class="form-check-label">Justifiée</label>
+                </div>
+                <div class="form-check">
+                  <input id="injustifiee" type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'unjustified'">
+                  <label for="injustifiee" class="form-check-label">Injustifiée</label>
+                </div>
+                <div class="form-check">
+                  <input id="waiting" type="radio" class="form-check-input" [(ngModel)]="absence.etat" [value]="'waiting'">
+                  <label for="waiting" class="form-check-label">En attente</label>
+                </div>
+                <button class="btn btn-primary" (click)="updateState(absence)">Sauvegarder</button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="pt-4" *ngIf="absences.length == 0">
+          <p>Aucunes absences</p>
         </div>
+
+      </div>
     </div>
-</div>
+  </div>
 </app-nav>

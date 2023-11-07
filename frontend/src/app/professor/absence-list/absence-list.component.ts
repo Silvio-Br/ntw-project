@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
 import {AbsencesService} from "../../shared/services/absences.service";
+import {StudentsService} from "../../shared/services/students.service";
 
 @Component({
     selector: 'app-absence-list',
@@ -8,10 +9,11 @@ import {AbsencesService} from "../../shared/services/absences.service";
     styleUrls: ['./absence-list.component.css']
 })
 export class AbsenceListComponent {
-    private _absences: any[] | undefined; // Define your absence model here
+    private _absences: any[]; // Define your absence model here
     searchDate: string = '';
 
-    constructor(private _absencesService: AbsencesService, private _authService: AuthService) {
+    constructor(private _absencesService: AbsencesService, private _authService: AuthService, private _studentsService: StudentsService) {
+        this._absences = [];
     }
 
     ngOnInit(): void {
@@ -21,10 +23,15 @@ export class AbsenceListComponent {
     loadAbsences() {
         this._absencesService.findAllByIdProfessor(this._authService.id).subscribe((data: any) => {
             this._absences = data;
+            for (let absence of this._absences) {
+                this._studentsService.findById(absence.etudiantId).subscribe((data: any) => {
+                    absence.student = data.firstname + " " + data.lastname;
+                });
+            }
         });
     }
 
-    get absences(): any[] | undefined {
+    get absences(): any[] {
         return this._absences;
     }
 

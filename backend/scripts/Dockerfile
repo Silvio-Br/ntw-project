@@ -1,5 +1,5 @@
 # Utilisez l'image Node.js 14 LTS comme base
-FROM node:18
+FROM node:21
 
 # Répertoire de travail dans le conteneur
 WORKDIR /app

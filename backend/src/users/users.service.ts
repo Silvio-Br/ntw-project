@@ -7,6 +7,7 @@ import {User} from "./schema/user.schema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import * as bcrypt from 'bcrypt';
+import {Absence} from "../absence/schema/absence.schema";
 
 @Injectable()
 export class UsersService {
