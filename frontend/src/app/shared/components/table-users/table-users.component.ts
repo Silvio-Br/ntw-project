@@ -14,6 +14,7 @@ export class TableUsersComponent {
   private _pagesArray: number[] = [];
   private _currentPage: number = 1;
   private _currentUsers: User[] = [];
+  searchName: string = '';
 
   private readonly _delete$: EventEmitter<String>;
 
@@ -31,6 +32,24 @@ export class TableUsersComponent {
     this._currentUsers = this._users.slice(0, 10);
     this._nbPages = Math.ceil(this._users.length / 10);
     this._pagesArray = Array(this._nbPages).fill(0).map((x, i) => i + 1);
+  }
+
+  filterUsers() {
+    if (this.searchName.trim() === '') {
+      this._currentUsers = this._users.slice(0, 10);
+      this._currentPage = 1;
+    } else {
+      // Filter absences based on the searchDate
+      if (this._users != undefined)
+        this._currentUsers = this._users.filter((user) => {
+          const name = user.firstname + " " + user.lastname;
+          return name.toLowerCase().includes(this.searchName.toLowerCase());
+        });
+    }
+  }
+
+  get nbPages(): number {
+    return this._nbPages;
   }
 
   @Output()
@@ -66,5 +85,6 @@ export class TableUsersComponent {
 
   submit(_id: string | undefined) {
     this._delete$.emit(_id);
+    this._currentUsers = this._users.slice(0, 10);
   }
 }

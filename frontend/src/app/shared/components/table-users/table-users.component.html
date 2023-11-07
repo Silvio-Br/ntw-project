@@ -4,11 +4,15 @@
   </div>
   <div class="card-body" *ngIf="users.length > 0">
     <div class="table-responsive">
+      <div>
+        <label class="mr-3" for="searchDate">Rechercher par nom :</label>
+        <input type="text" id="searchDate" [(ngModel)]="searchName" (keyup)="filterUsers()">
+      </div>
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
         <tr>
-          <th>Nom</th>
           <th>Prénom</th>
+          <th>Nom</th>
           <th>Email</th>
           <th>Téléphone</th>
           <th>Action</th>
@@ -17,7 +21,7 @@
         <tbody>
         <tr *ngFor="let user of users">
           <td>{{user.firstname}}</td>
-          <td>{{user.lastname}}</td>
+          <td>{{user.lastname | uppercase}}</td>
           <td>{{user.email}}</td>
           <td>{{user.phone}}</td>
           <td class="text-center"><button class="btn-danger " (click)="submit(user._id)"><i class="fas fa-fw fa-trash"></i></button></td>
@@ -25,7 +29,7 @@
         </tbody>
       </table>
       <!-- Pagination -->
-      <div>
+      <div *ngIf="nbPages > 1">
         <ul class="pagination">
           <li style="cursor: pointer" class="page-item" *ngFor="let index of pages">
             <a class="page-link" (click)="changePage(index)" >{{index}}</a>
@@ -35,6 +39,6 @@
     </div>
   </div>
   <div class="card-body pt-4" *ngIf="users.length == 0">
-    <p>Vous n'avez pas d'users</p>
+    <p>Aucun utilisateurs</p>
   </div>
 </div>

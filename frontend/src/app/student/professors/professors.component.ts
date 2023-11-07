@@ -16,6 +16,7 @@ export class ProfessorsComponent implements OnInit {
   private _pagesArray: number[] = [];
   private _currentPage: number = 1;
   private _currentProfessors: User[] = [];
+  searchName: string = '';
 
   constructor(private _professorsService: ProfessorsService) {}
 
@@ -34,6 +35,24 @@ export class ProfessorsComponent implements OnInit {
 
   get professors(): User[] {
     return this._currentProfessors;
+  }
+
+  filterProfessors() {
+    if (this.searchName.trim() === '') {
+      this._currentProfessors = this._professors.slice(0, 10);
+      this._currentPage = 1;
+    } else {
+      // Filter absences based on the searchDate
+      if (this._professors != undefined)
+        this._currentProfessors = this._professors.filter((professor) => {
+          const name = professor.firstname + " " + professor.lastname;
+          return name.toLowerCase().includes(this.searchName.toLowerCase());
+        });
+    }
+  }
+
+  get nbPages(): number {
+    return this._nbPages;
   }
 
   changePage(page: number) {
