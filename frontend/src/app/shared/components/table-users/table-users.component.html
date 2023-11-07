@@ -2,13 +2,13 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Liste des {{role}}</h6>
   </div>
-  <div class="card-body" *ngIf="users.length > 0">
+  <div class="card-body">
     <div class="table-responsive">
       <div>
         <label class="mr-3" for="searchDate">Rechercher par nom :</label>
         <input type="text" id="searchDate" [(ngModel)]="searchName" (keyup)="filterUsers()">
       </div>
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <table *ngIf="users.length > 0" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
         <tr>
           <th>Prénom</th>

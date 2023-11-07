@@ -41,7 +41,7 @@ Pour lancer le projet NTW, suivez ces étapes :
    docker-compose up --build
    ```
 
-4. Une fois le projet lancé avec succès, vous pouvez accéder à l'application en utilisant votre navigateur Web à l'adresse `http://localhost:4200`.
+4. Une fois le projet lancé avec succès, vous pouvez accéder à l'application en utilisant votre navigateur Web à l'adresse `http://localhost`. La documentation de l'API est disponible à l'adresse `http://localhost:3000/api`.
 
 ## Utilisation de l'Application
 
