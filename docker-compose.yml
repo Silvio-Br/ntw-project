@@ -2,7 +2,8 @@ version: '3'
 services:
   nestjs-app:
     build:
-      dockerfile: backend/scripts/Dockerfile
+      context: backend
+      dockerfile: scripts/Dockerfile
     container_name: nestjs_container
     ports:
       - 3000:3000
@@ -13,7 +14,8 @@ services:
 
   angular-app:
     build:
-      dockerfile: frontend/scripts/Dockerfile
+      context: frontend
+      dockerfile: scripts/Dockerfile
     container_name: angular_container
     ports:
       - 4200:4200
