@@ -65,8 +65,6 @@ export class AddUserComponent {
     }
 
     onSubmit() {
-        console.log(this._form.value)
-        console.log('model', this._model)
         this._model = this._form.value;
         if (this._userType === 'student') {
             this._studentsService.create(this._model).subscribe((response: any) => {

@@ -47,8 +47,6 @@ export class SendMessageComponent {
         this._message.message = this._form.value.message;
         this.messageService.sendMessage(this._message).subscribe(
             (response) => {
-                console.log('Message sent successfully:', response);
-                // You can reset the form or perform other actions here
                 this._success = true;
             },
             (error) => {
